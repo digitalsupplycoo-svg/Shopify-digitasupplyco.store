@@ -1,0 +1,707 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+
+  assign eyebrow = section.settings.eyebrow_en
+  assign display_title = product.title
+  assign description = section.settings.description_en
+  assign format_label = section.settings.format_label_en
+  assign add_to_cart_label = section.settings.add_to_cart_label_en
+  assign guarantee_text = section.settings.guarantee_text_en
+  assign included_title = section.settings.included_title_en
+  assign audience_title = section.settings.audience_title_en
+  assign benefits_title = section.settings.benefits_title_en
+  assign process_title = section.settings.process_title_en
+  assign rating_text = section.settings.rating_text
+  assign quick_main_line = blank
+  assign quick_benefit_1 = blank
+  assign quick_benefit_2 = blank
+  assign quick_benefit_3 = blank
+  assign quick_benefit_4 = blank
+
+  if is_ar
+    assign eyebrow = section.settings.eyebrow_ar | default: eyebrow
+    if section.settings.title_ar != blank
+      assign display_title = section.settings.title_ar
+    endif
+    assign description = section.settings.description_ar | default: description
+    assign format_label = section.settings.format_label_ar | default: format_label
+    assign add_to_cart_label = section.settings.add_to_cart_label_ar | default: add_to_cart_label
+    assign guarantee_text = section.settings.guarantee_text_ar | default: guarantee_text
+    assign included_title = section.settings.included_title_ar | default: included_title
+    assign audience_title = section.settings.audience_title_ar | default: audience_title
+    assign benefits_title = section.settings.benefits_title_ar | default: benefits_title
+    assign process_title = section.settings.process_title_ar | default: process_title
+    assign rating_text = section.settings.rating_text_ar | default: rating_text
+  elsif section.settings.title_en != blank
+    assign display_title = section.settings.title_en
+  endif
+
+  assign normalized_product_handle = product.handle | remove: '™'
+
+  case normalized_product_handle
+    when 'dropshipping-mastery-system'
+      if is_ar
+        assign display_title = 'دروبشيبينغ — ابدأ متجر بدون مخزون'
+        assign description = 'تعلم كيف تختار منتج، تجهز متجر، وتبدأ اختبار أول فكرة بيع أونلاين بدون الحاجة لشراء مخزون من البداية.'
+        assign quick_main_line = 'مناسب لأي شخص يريد يبدأ تجارة إلكترونية بسرعة وبأقل تعقيد.'
+        assign quick_benefit_1 = 'تعرف كيف تختار منتجات قابلة للبيع'
+        assign quick_benefit_2 = 'تفهم طريقة بناء متجر بسيط'
+        assign quick_benefit_3 = 'تتعلم أساسيات الإعلانات والاختبار'
+        assign quick_benefit_4 = 'تبدأ بدون مخزون وبدون تعقيد كبير'
+        assign add_to_cart_label = 'ابدأ بالدروبشيبينغ'
+        assign rating_text = 'خطة واضحة · مناسب للمبتدئين · بدون وعود وهمية'
+      else
+        assign display_title = 'Dropshipping — Start an Online Store Without Inventory'
+        assign description = 'Learn how to choose a product, set up a store, and test your first online selling idea without buying inventory upfront.'
+        assign quick_main_line = 'Perfect for beginners who want to start e-commerce faster with less complexity.'
+        assign quick_benefit_1 = 'Learn how to find sellable products'
+        assign quick_benefit_2 = 'Understand how to build a simple store'
+        assign quick_benefit_3 = 'Learn the basics of testing and ads'
+        assign quick_benefit_4 = 'Start without holding inventory'
+        assign add_to_cart_label = 'Start Dropshipping'
+        assign rating_text = 'Clear plan · Beginner-friendly · Practical steps'
+      endif
+    when 'amazon-fba-blueprint'
+      if is_ar
+        assign display_title = 'Amazon FBA — ابنِ مشروع بيع على أمازون'
+        assign description = 'دليل عملي يساعدك تفهم كيف يعمل Amazon FBA، كيف تبحث عن منتجات، وكيف تبدأ التفكير كبائع على أكبر منصات التجارة الإلكترونية.'
+        assign quick_main_line = 'مناسب لمن يريد بناء مشروع أكثر جدية وتنظيمًا على المدى الطويل.'
+        assign quick_benefit_1 = 'تفهم نموذج البيع عبر Amazon FBA'
+        assign quick_benefit_2 = 'تتعلم أساسيات اختيار المنتج'
+        assign quick_benefit_3 = 'تعرف ما تحتاجه قبل البدء'
+        assign quick_benefit_4 = 'تبدأ بخطة أوضح بدل التخمين'
+        assign add_to_cart_label = 'ابدأ مع Amazon FBA'
+        assign rating_text = 'محتوى منظم · خطوات واضحة · مناسب للمبتدئين'
+      else
+        assign display_title = 'Amazon FBA — Build a Selling Business on Amazon'
+        assign description = 'A practical guide to help you understand how Amazon FBA works, how to research products, and how to start thinking like an online seller.'
+        assign quick_main_line = 'Made for people who want a more structured long-term online business path.'
+        assign quick_benefit_1 = 'Understand the Amazon FBA model'
+        assign quick_benefit_2 = 'Learn the basics of product research'
+        assign quick_benefit_3 = 'Know what you need before starting'
+        assign quick_benefit_4 = 'Start with a clearer plan instead of guessing'
+        assign add_to_cart_label = 'Start Amazon FBA'
+        assign rating_text = 'Organized content · Clear steps · Beginner-friendly'
+      endif
+    when 'online-income-system'
+      if is_ar
+        assign display_title = 'AI Income System — استخدم الذكاء الاصطناعي لبدء دخل رقمي'
+        assign description = 'تعلم كيف تستخدم أدوات الذكاء الاصطناعي لاكتشاف أفكار دخل، إنشاء محتوى، تجهيز خدمات رقمية، والبدء من هاتفك أو لابتوبك.'
+        assign quick_main_line = 'مناسب لمن يريد طريقة أسرع وأسهل للدخول إلى عالم الدخل الرقمي.'
+        assign quick_benefit_1 = 'أفكار دخل رقمية باستخدام AI'
+        assign quick_benefit_2 = 'خطوات لإنشاء محتوى وخدمات'
+        assign quick_benefit_3 = 'مناسب للمبتدئين بدون خبرة تقنية'
+        assign quick_benefit_4 = 'ابدأ من أدوات بسيطة متوفرة عندك'
+        assign add_to_cart_label = 'ابدأ بالذكاء الاصطناعي'
+        assign rating_text = 'سهل التطبيق · بداية أسرع · محتوى عملي'
+      else
+        assign display_title = 'AI Income System — Use AI to Start a Digital Income Path'
+        assign description = 'Learn how to use AI tools to discover income ideas, create content, build digital services, and start from your phone or laptop.'
+        assign quick_main_line = 'Perfect for anyone who wants a faster and simpler entry into digital income.'
+        assign quick_benefit_1 = 'Digital income ideas using AI'
+        assign quick_benefit_2 = 'Steps to create content and services'
+        assign quick_benefit_3 = 'Beginner-friendly with no tech background'
+        assign quick_benefit_4 = 'Start with simple tools you already have'
+        assign add_to_cart_label = 'Start With AI'
+        assign rating_text = 'Easy to follow · Faster start · Practical content'
+      endif
+  endcase
+
+  if format_label == blank
+    assign format_label = 'products.product.choose_format' | t
+  endif
+  if add_to_cart_label == blank
+    assign add_to_cart_label = 'products.product.add_to_cart' | t
+  endif
+  if included_title == blank
+    assign included_title = 'products.product.what_included' | t
+  endif
+  if audience_title == blank
+    assign audience_title = 'products.product.who_for' | t
+  endif
+  if benefits_title == blank
+    assign benefits_title = 'products.product.benefits' | t
+  endif
+  if process_title == blank
+    assign process_title = 'products.product.how_it_works' | t
+  endif
+  if guarantee_text == blank
+    assign guarantee_text = 'products.product.guarantee_text' | t
+  endif
+
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'product-form-' | append: section.id
+  assign selected_media = product.media.first
+  if product.media.size > 1
+    for media in product.media
+      assign media_alt_down = media.alt | downcase
+      assign media_src_down = media.preview_image | image_url: width: 1600 | downcase
+      if is_ar
+        if media_alt_down contains 'arabic' or media_alt_down contains 'عربي' or media_src_down contains 'arabic' or media_src_down contains '_ar' or media_src_down contains '-ar'
+          assign selected_media = media
+          break
+        endif
+      else
+        if media_alt_down contains 'english' or media_alt_down contains 'انجليزي' or media_src_down contains 'english' or media_src_down contains '_en' or media_src_down contains '-en'
+          assign selected_media = media
+          break
+        endif
+      endif
+    endfor
+  endif
+  capture fallback_cover_asset
+    render 'fallback-cover', product: product, fallback_cover: section.settings.fallback_cover
+  endcapture
+  assign fallback_cover_asset = fallback_cover_asset | strip
+
+  assign fallback_image = blank
+  if section.settings.fallback_image != blank
+    assign fallback_image = section.settings.fallback_image
+  endif
+
+  assign locale_image = blank
+  if is_ar
+    if section.settings.image_ar != blank
+      assign locale_image = section.settings.image_ar
+    endif
+  elsif section.settings.image_en != blank
+    assign locale_image = section.settings.image_en
+  endif
+%}
+
+<section class="product-wrap" id="ProductSection-{{ section.id }}">
+  {% render 'breadcrumbs', current_title: display_title %}
+  <div class="product-gallery" data-product-gallery aria-label="{{ 'products.product.instant_download' | t }}">
+    <div class="feature-image">
+      {% if locale_image != blank %}
+        {% assign locale_src = locale_image | image_url: width: 1600 %}
+        <img src="{{ locale_src }}" srcset="{{ locale_image | image_url: width: 480 }} 480w, {{ locale_image | image_url: width: 720 }} 720w, {{ locale_image | image_url: width: 960 }} 960w, {{ locale_src }} 1600w" sizes="(max-width: 900px) calc(100vw - 32px), 52vw" width="{{ locale_image.width }}" height="{{ locale_image.height }}" loading="eager" fetchpriority="high" alt="{{ display_title | escape }}" data-gallery-main-image>
+      {% elsif product.media.size > 0 %}
+        {% assign selected_src = selected_media.preview_image | image_url: width: 1600 %}
+        <img src="{{ selected_src }}" srcset="{{ selected_media.preview_image | image_url: width: 480 }} 480w, {{ selected_media.preview_image | image_url: width: 720 }} 720w, {{ selected_media.preview_image | image_url: width: 960 }} 960w, {{ selected_src }} 1600w" sizes="(max-width: 900px) calc(100vw - 32px), 52vw" width="{{ selected_media.preview_image.width }}" height="{{ selected_media.preview_image.height }}" loading="eager" fetchpriority="high" alt="{{ selected_media.alt | default: display_title | escape }}" data-gallery-main-image>
+      {% elsif fallback_image != blank %}
+        {% assign fallback_src = fallback_image | image_url: width: 1600 %}
+        <img src="{{ fallback_src }}" srcset="{{ fallback_image | image_url: width: 480 }} 480w, {{ fallback_image | image_url: width: 720 }} 720w, {{ fallback_image | image_url: width: 960 }} 960w, {{ fallback_src }} 1600w" sizes="(max-width: 900px) calc(100vw - 32px), 52vw" width="{{ fallback_image.width }}" height="{{ fallback_image.height }}" loading="eager" fetchpriority="high" alt="{{ display_title | escape }}" data-gallery-main-image>
+      {% else %}
+        <img src="{{ fallback_cover_asset | asset_url }}" width="1536" height="1024" alt="{{ display_title | escape }}" data-gallery-main-image>
+      {% endif %}
+      <span class="download-ribbon">{{ 'products.product.instant_download' | t }}</span>
+    </div>
+
+    <div class="thumb-grid" aria-label="Product thumbnails">
+      {% if locale_image != blank %}
+        {% assign locale_src = locale_image | image_url: width: 1600 %}
+        {% assign locale_thumb_src = locale_image | image_url: width: 160 %}
+        <button class="thumb is-active" type="button" data-gallery-thumbnail data-full-src="{{ locale_src }}" data-alt="{{ display_title | escape }}">
+          <img src="{{ locale_thumb_src }}" width="{{ locale_image.width }}" height="{{ locale_image.height }}" loading="lazy" alt="{{ display_title | escape }}">
+          <span>{{ display_title }}</span>
+        </button>
+        {% if product.media.size > 0 %}
+          {% for media in product.media limit: 7 %}
+            {% assign thumb_src = media.preview_image | image_url: width: 1600 %}
+            {% assign thumb_image_src = media.preview_image | image_url: width: 160 %}
+            <button class="thumb" type="button" data-gallery-thumbnail data-full-src="{{ thumb_src }}" data-alt="{{ media.alt | default: display_title | escape }}">
+              <img src="{{ thumb_image_src }}" width="{{ media.preview_image.width }}" height="{{ media.preview_image.height }}" loading="lazy" alt="{{ media.alt | default: display_title | escape }}">
+              <span>{{ forloop.index }}</span>
+            </button>
+          {% endfor %}
+        {% endif %}
+      {% elsif product.media.size > 0 %}
+        {% for media in product.media limit: 8 %}
+          {% assign thumb_src = media.preview_image | image_url: width: 1600 %}
+          {% assign thumb_image_src = media.preview_image | image_url: width: 160 %}
+          <button class="thumb{% if media.id == selected_media.id %} is-active{% endif %}" type="button" data-gallery-thumbnail data-full-src="{{ thumb_src }}" data-alt="{{ media.alt | default: display_title | escape }}">
+            <img src="{{ thumb_image_src }}" width="{{ media.preview_image.width }}" height="{{ media.preview_image.height }}" loading="lazy" alt="{{ media.alt | default: display_title | escape }}">
+            <span>{{ forloop.index }}</span>
+          </button>
+        {% endfor %}
+      {% elsif fallback_image != blank %}
+        {% assign fallback_src = fallback_image | image_url: width: 1600 %}
+        {% assign fallback_thumb_src = fallback_image | image_url: width: 160 %}
+        <button class="thumb is-active" type="button" data-gallery-thumbnail data-full-src="{{ fallback_src }}" data-alt="{{ display_title | escape }}">
+          <img src="{{ fallback_thumb_src }}" width="{{ fallback_image.width }}" height="{{ fallback_image.height }}" loading="lazy" alt="{{ display_title | escape }}">
+          <span>{{ display_title }}</span>
+        </button>
+      {% else %}
+        <button class="thumb is-active" type="button" data-gallery-thumbnail data-full-src="{{ fallback_cover_asset | asset_url }}" data-alt="{{ display_title | escape }}">
+          <img src="{{ fallback_cover_asset | asset_url }}" width="1536" height="1024" loading="lazy" alt="">
+          <span>{{ display_title }}</span>
+        </button>
+      {% endif %}
+    </div>
+  </div>
+
+  <article class="product-info">
+    <div class="product-purchase">
+    {% if eyebrow != blank %}
+      <p class="eyebrow">{{ eyebrow }}</p>
+    {% endif %}
+    <h1>{{ display_title }}</h1>
+
+    {% if section.settings.show_reviews %}
+      <div class="confidence-row" aria-label="{{ section.settings.rating_label }}">
+        <span class="confidence-mark" aria-hidden="true">✓</span>
+        <span>{{ rating_text }}</span>
+      </div>
+    {% endif %}
+
+    <div class="price-row">
+      <span class="price">{{ product.price | money }}</span>
+      {% if product.compare_at_price_max > product.price %}
+        <span class="compare-price">{{ product.compare_at_price_max | money }}</span>
+        <span class="sale-badge">{{ section.settings.sale_badge }}</span>
+      {% endif %}
+    </div>
+
+    {% if description != blank %}
+      <div class="short-description">{{ description | newline_to_br }}</div>
+    {% elsif product.description != blank %}
+      <div class="short-description">{{ product.description }}</div>
+    {% endif %}
+
+    {% if quick_main_line != blank %}
+      <ul class="delivery-list product-benefit-snapshot" aria-label="{{ benefits_title | escape }}">
+        <li><strong>{{ quick_main_line }}</strong></li>
+        {% if quick_benefit_1 != blank %}<li><span>{{ quick_benefit_1 }}</span></li>{% endif %}
+        {% if quick_benefit_2 != blank %}<li><span>{{ quick_benefit_2 }}</span></li>{% endif %}
+        {% if quick_benefit_3 != blank %}<li><span>{{ quick_benefit_3 }}</span></li>{% endif %}
+        {% if quick_benefit_4 != blank %}<li><span>{{ quick_benefit_4 }}</span></li>{% endif %}
+      </ul>
+    {% endif %}
+
+    {% form 'product', product, id: product_form_id, class: 'buy-box' %}
+      {% unless product.has_only_default_variant %}
+        <label for="ProductSelect-{{ section.id }}">{{ format_label }}</label>
+        <select id="ProductSelect-{{ section.id }}" name="id">
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+              {{ variant.title }} - {{ variant.price | money }}
+            </option>
+          {% endfor %}
+        </select>
+      {% else %}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+      {% endunless %}
+
+      <div class="quantity-row">
+        <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+        <input id="Quantity-{{ section.id }}" type="number" name="quantity" min="1" value="1">
+      </div>
+
+      <div class="action-row">
+        <button class="add-button" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %}>
+          {% if current_variant.available %}
+            {{ add_to_cart_label }}
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </button>
+        {% if current_variant.available %}
+          {{ form | payment_button }}
+        {% endif %}
+      </div>
+    {% endform %}
+    </div>
+
+    <div class="product-details">
+    <ul class="delivery-list" aria-label="{{ 'products.product.digital_delivery' | t }}">
+      <li>
+        <strong>{{ 'products.product.digital_delivery' | t }}</strong>
+        <span>{{ 'products.product.download_text' | t }}</span>
+      </li>
+      <li>
+        <strong>{{ 'products.product.updates' | t }}</strong>
+        <span>{{ 'products.product.updates_text' | t }}</span>
+      </li>
+      <li>
+        <strong>{{ 'products.product.no_shipping' | t }}</strong>
+        <span>{{ 'products.product.no_shipping_text' | t }}</span>
+      </li>
+    </ul>
+
+    {% if product.description != blank %}
+      <div class="product-description rte">
+        {{ product.description }}
+      </div>
+    {% endif %}
+
+    {% unless normalized_product_handle == 'shipping-protection' %}
+      <aside class="outcome-disclaimer" aria-label="{% if is_ar %}إخلاء مسؤولية النتائج{% else %}Outcome disclaimer{% endif %}">
+        <h2>{% if is_ar %}توقعات واقعية{% else %}Realistic outcome expectations{% endif %}</h2>
+        <p>{% if is_ar %}هذه منتجات رقمية عملية تحتوي على خطوات وقوالب وخطط تنفيذ. يعتمد تقدمك على جهدك ووقتك والسوق وطريقة التنفيذ.{% else %}These are practical digital products with steps, templates, and execution plans. Your progress depends on your effort, time, market, and implementation.{% endif %}</p>
+        {% if normalized_product_handle == 'amazon-fba-blueprint' %}
+          <p>{% if is_ar %}هذا دليل مستقل غير تابع لشركة Amazon أو معتمد أو ممول منها. Amazon وFBA علامتان تجاريتان لشركة Amazon.com, Inc.{% else %}This independent guide is not affiliated with, endorsed by, or sponsored by Amazon. Amazon and FBA are trademarks of Amazon.com, Inc.{% endif %}</p>
+        {% endif %}
+      </aside>
+    {% endunless %}
+
+    <div class="accordion-list">
+      <details open>
+        <summary><h2>{{ included_title }}</h2></summary>
+        <ul>
+          {% for block in section.blocks %}
+            {% if block.type == 'included_item' %}
+              {% liquid
+                assign item_title = block.settings.title_en
+                assign item_text = block.settings.text_en
+                if is_ar
+                  assign item_title = block.settings.title_ar | default: item_title
+                  assign item_text = block.settings.text_ar | default: item_text
+                endif
+              %}
+              <li {{ block.shopify_attributes }}>
+                <h3>{{ item_title }}</h3>
+                {% if item_text != blank %}<span>{{ item_text }}</span>{% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </details>
+
+      <details open>
+        <summary><h2>{{ audience_title }}</h2></summary>
+        <ul>
+          {% for block in section.blocks %}
+            {% if block.type == 'audience_item' %}
+              {% liquid
+                assign audience_item_title = block.settings.title_en
+                assign audience_item_text = block.settings.text_en
+                if is_ar
+                  assign audience_item_title = block.settings.title_ar | default: audience_item_title
+                  assign audience_item_text = block.settings.text_ar | default: audience_item_text
+                endif
+                assign audience_item_title = audience_item_title | replace: 'UAE and GCC ecommerce builders', 'Global ecommerce builders'
+                assign audience_item_title = audience_item_title | replace: 'رواد التجارة في الإمارات والخليج', 'رواد التجارة الإلكترونية حول العالم'
+                assign audience_item_text = audience_item_text | replace: 'for UAE and GCC customers', 'for digital buyers worldwide'
+                assign audience_item_text = audience_item_text | replace: 'لعملاء الإمارات والخليج', 'للعملاء حول العالم'
+              %}
+              <li {{ block.shopify_attributes }}>
+                <h3>{{ audience_item_title }}</h3>
+                {% if audience_item_text != blank %}<span>{{ audience_item_text }}</span>{% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </details>
+
+      <details open>
+        <summary><h2>{{ benefits_title }}</h2></summary>
+        <ul>
+          {% for block in section.blocks %}
+            {% if block.type == 'benefit_item' %}
+              {% liquid
+                assign benefit_title = block.settings.title_en
+                assign benefit_text = block.settings.text_en
+                if is_ar
+                  assign benefit_title = block.settings.title_ar | default: benefit_title
+                  assign benefit_text = block.settings.text_ar | default: benefit_text
+                endif
+              %}
+              <li {{ block.shopify_attributes }}>
+                <h3>{{ benefit_title }}</h3>
+                {% if benefit_text != blank %}<span>{{ benefit_text }}</span>{% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </details>
+
+      <details open>
+        <summary><h2>{{ process_title }}</h2></summary>
+        <ul>
+          {% for block in section.blocks %}
+            {% if block.type == 'process_step' %}
+              {% liquid
+                assign process_step_title = block.settings.title_en
+                assign process_step_text = block.settings.text_en
+                if is_ar
+                  assign process_step_title = block.settings.title_ar | default: process_step_title
+                  assign process_step_text = block.settings.text_ar | default: process_step_text
+                endif
+              %}
+              <li {{ block.shopify_attributes }}>
+                <h3>{{ process_step_title }}</h3>
+                {% if process_step_text != blank %}<span>{{ process_step_text }}</span>{% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </details>
+
+      <details open>
+        <summary><h2>{{ 'products.product.guarantee' | t }}</h2></summary>
+        <p>{{ guarantee_text }}</p>
+        {% if shop.refund_policy != blank %}
+          <p><a href="{{ shop.refund_policy.url }}">{% if is_ar %}اقرأ سياسة الاسترداد{% else %}Read the Refund Policy{% endif %}</a></p>
+        {% endif %}
+      </details>
+    </div>
+    </div>
+  </article>
+</section>
+
+{% liquid
+  assign structured_image = product.featured_image
+  if locale_image != blank
+    assign structured_image = locale_image
+  elsif fallback_image != blank
+    assign structured_image = fallback_image
+  endif
+  assign structured_price = current_variant.price | divided_by: 100.0
+%}
+
+{% unless normalized_product_handle == 'shipping-protection' %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ display_title | json }},
+    "description": {{ product.description | default: description | strip_html | json }},
+    {% if structured_image != blank %}
+      "image": [{{ structured_image | image_url: width: 1200 | prepend: 'https:' | json }}],
+    {% endif %}
+    "brand": {
+      "@type": "Brand",
+      "name": "DigitalSupply Co"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": {{ shop.url | append: product.url | json }},
+      "priceCurrency": "USD",
+      "price": {{ structured_price | json }},
+      "availability": "https://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}"
+    }
+  }
+</script>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "Digital product main",
+  "settings": [
+    {
+      "type": "select",
+      "id": "fallback_cover",
+      "label": "Fallback cover",
+      "default": "generic",
+      "options": [
+        { "value": "generic", "label": "Generic" },
+        { "value": "dropshipping", "label": "Dropshipping Mastery System" },
+        { "value": "amazon", "label": "Amazon FBA Blueprint" },
+        { "value": "online", "label": "Online Income System" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Fallback product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_en",
+      "label": "Product image override - English"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_ar",
+      "label": "Product image override - Arabic"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_en",
+      "label": "Eyebrow - English",
+      "default": "Digital system · instant download"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_ar",
+      "label": "Eyebrow - Arabic",
+      "default": "نظام رقمي · تحميل فوري"
+    },
+    {
+      "type": "text",
+      "id": "title_en",
+      "label": "Title override - English"
+    },
+    {
+      "type": "text",
+      "id": "title_ar",
+      "label": "Title override - Arabic"
+    },
+    {
+      "type": "textarea",
+      "id": "description_en",
+      "label": "Description - English"
+    },
+    {
+      "type": "textarea",
+      "id": "description_ar",
+      "label": "Description - Arabic"
+    },
+    {
+      "type": "text",
+      "id": "format_label_en",
+      "label": "Variant label - English",
+      "default": "Choose format"
+    },
+    {
+      "type": "text",
+      "id": "format_label_ar",
+      "label": "Variant label - Arabic",
+      "default": "اختر النسخة"
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_label_en",
+      "label": "Add to cart label - English",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_label_ar",
+      "label": "Add to cart label - Arabic",
+      "default": "أضف إلى السلة"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Show confidence row",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Confidence accessibility label",
+      "default": "Product confidence note"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Confidence text",
+      "default": "Step-by-step digital system"
+    },
+    {
+      "type": "text",
+      "id": "rating_text_ar",
+      "label": "Confidence text - Arabic",
+      "default": "نظام رقمي خطوة بخطوة"
+    },
+    {
+      "type": "text",
+      "id": "sale_badge",
+      "label": "Sale badge",
+      "default": "Save"
+    },
+    {
+      "type": "text",
+      "id": "included_title_en",
+      "label": "Included heading - English",
+      "default": "What's included"
+    },
+    {
+      "type": "text",
+      "id": "included_title_ar",
+      "label": "Included heading - Arabic",
+      "default": "ماذا ستحصل عليه"
+    },
+    {
+      "type": "text",
+      "id": "audience_title_en",
+      "label": "Audience heading - English",
+      "default": "Who it is for"
+    },
+    {
+      "type": "text",
+      "id": "audience_title_ar",
+      "label": "Audience heading - Arabic",
+      "default": "لمن هذا المنتج؟"
+    },
+    {
+      "type": "text",
+      "id": "benefits_title_en",
+      "label": "Benefits heading - English",
+      "default": "Benefits"
+    },
+    {
+      "type": "text",
+      "id": "benefits_title_ar",
+      "label": "Benefits heading - Arabic",
+      "default": "الفوائد"
+    },
+    {
+      "type": "text",
+      "id": "process_title_en",
+      "label": "Process heading - English",
+      "default": "How it works"
+    },
+    {
+      "type": "text",
+      "id": "process_title_ar",
+      "label": "Process heading - Arabic",
+      "default": "كيف يعمل؟"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text_en",
+      "label": "Guarantee text - English",
+      "default": "Try the system for 30 days. If it is not a fit, request a refund according to your store policy."
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text_ar",
+      "label": "Guarantee text - Arabic",
+      "default": "جرّب النظام لمدة 30 يوماً. إذا لم يكن مناسباً لك، يمكنك طلب استرداد الأموال حسب سياسة المتجر."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "included_item",
+      "name": "Included item",
+      "settings": [
+        { "type": "text", "id": "title_en", "label": "Title - English" },
+        { "type": "textarea", "id": "text_en", "label": "Text - English" },
+        { "type": "text", "id": "title_ar", "label": "Title - Arabic" },
+        { "type": "textarea", "id": "text_ar", "label": "Text - Arabic" }
+      ]
+    },
+    {
+      "type": "audience_item",
+      "name": "Audience item",
+      "settings": [
+        { "type": "text", "id": "title_en", "label": "Title - English" },
+        { "type": "textarea", "id": "text_en", "label": "Text - English" },
+        { "type": "text", "id": "title_ar", "label": "Title - Arabic" },
+        { "type": "textarea", "id": "text_ar", "label": "Text - Arabic" }
+      ]
+    },
+    {
+      "type": "benefit_item",
+      "name": "Benefit item",
+      "settings": [
+        { "type": "text", "id": "title_en", "label": "Title - English" },
+        { "type": "textarea", "id": "text_en", "label": "Text - English" },
+        { "type": "text", "id": "title_ar", "label": "Title - Arabic" },
+        { "type": "textarea", "id": "text_ar", "label": "Text - Arabic" }
+      ]
+    },
+    {
+      "type": "process_step",
+      "name": "Process step",
+      "settings": [
+        { "type": "text", "id": "title_en", "label": "Title - English" },
+        { "type": "textarea", "id": "text_en", "label": "Text - English" },
+        { "type": "text", "id": "title_ar", "label": "Title - Arabic" },
+        { "type": "textarea", "id": "text_ar", "label": "Text - Arabic" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Digital product main"
+    }
+  ]
+}
+{% endschema %}

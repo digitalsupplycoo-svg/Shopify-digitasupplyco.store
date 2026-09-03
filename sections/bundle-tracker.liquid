@@ -1,0 +1,80 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+%}
+
+<div class="bundle-tracker" data-bundle-tracker>
+  <strong data-bundle-tracker-text>{% if is_ar %}خذ الأنظمة الثلاثة مقابل $71.98 بدل $89.97 — وفر $17.99 تلقائياً عند الدفع{% else %}Get all 3 systems for $71.98 instead of $89.97 — save $17.99 automatically at checkout{% endif %}</strong>
+</div>
+
+{% stylesheet %}
+  .bundle-tracker {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    min-height: 48px;
+    padding: 0.72rem max(1rem, calc((100vw - var(--page-width)) / 2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: #fff;
+    background: #123A6B;
+    border-bottom: 2px solid rgba(232, 160, 32, 0.65);
+    text-align: center;
+    font-family: var(--sans, Arial, sans-serif);
+  }
+
+  .bundle-tracker strong {
+    font-size: clamp(0.88rem, 1.4vw, 1rem);
+    line-height: 1.25;
+  }
+
+  @media (max-width: 720px) {
+    .bundle-tracker {
+      flex-direction: column;
+      gap: 0.35rem;
+      padding-block: 0.65rem;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (function () {
+    var bar = document.querySelector('[data-bundle-tracker]');
+    var text = document.querySelector('[data-bundle-tracker-text]');
+    if (!bar || !text) return;
+
+    var isRtl = document.documentElement.dir === 'rtl';
+
+    function message(count) {
+      if (isRtl) {
+        if (count <= 0) return 'خذ الأنظمة الثلاثة مقابل $71.98 بدل $89.97 — وفر $17.99 تلقائياً عند الدفع';
+        if (count === 1) return 'أضف النظامين الباقيين وخذ الباقة بسعر أفضل تلقائياً';
+        if (count === 2) return 'أضف النظام الأخير — خصم الباقة يتفعل تلقائياً';
+        return '✓ اكتملت الباقة — الخصم سيظهر في مسار الدفع';
+      }
+      if (count <= 0) return 'Get all 3 systems for $71.98 instead of $89.97 — save $17.99 automatically at checkout';
+      if (count === 1) return 'Add the other 2 systems — bundle savings apply automatically';
+      if (count === 2) return 'Add the final system — your bundle discount is ready';
+      return '✓ Bundle complete — discount appears in checkout';
+    }
+
+    fetch('/cart.js', { credentials: 'same-origin' })
+      .then(function (response) { return response.ok ? response.json() : null; })
+      .then(function (cart) {
+        if (!cart) return;
+        text.textContent = message(Math.min(cart.item_count || 0, 3));
+      })
+      .catch(function () {});
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Bundle tracker",
+  "presets": [{ "name": "Bundle tracker" }]
+}
+{% endschema %}

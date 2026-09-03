@@ -1,0 +1,139 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+
+  assign eyebrow = section.settings.eyebrow_en | default: 'Why customers can buy with confidence'
+  assign heading = section.settings.heading_en | default: 'Clear digital systems, honest guidance, and a safer way to start.'
+  assign intro = section.settings.intro_en | default: 'DigitalSupply Co is built for people who want practical online business education without exaggerated promises.'
+  assign titles = section.settings.card_titles_en | default: 'Clear before checkout||Practical steps||Instant digital access||Made for global buyers||30-day guarantee||Smarter bundle path'
+  assign texts = section.settings.card_texts_en | default: 'Each page explains what is included and how the product works.||Structured education, not fake income promises.||Customers receive digital access after checkout.||Digital products can be purchased from anywhere. Prices are shown in USD.||A fair safety window makes the purchase easier.||Buying all three gives the complete path and saves 20%.'
+  assign closing_title = section.settings.closing_title_en | default: 'A stronger decision before you spend more time or money.'
+  assign closing_text = section.settings.closing_text_en | default: 'Start with one focused system, or take the complete three-product bundle for the full learning path.'
+
+  if is_ar
+    assign eyebrow = section.settings.eyebrow_ar | default: 'ليش تشتري وأنت مطمئن؟'
+    assign heading = section.settings.heading_ar | default: 'أنظمة رقمية واضحة، إرشاد صادق، وبداية أذكى بثقة.'
+    assign intro = section.settings.intro_ar | default: 'DigitalSupply Co مصمم للناس الذين يريدون محتوى عملي وواضح عن التجارة الإلكترونية والدخل الأونلاين، بدون وعود مبالغ فيها.'
+    assign titles = section.settings.card_titles_ar | default: 'وضوح قبل الدفع||عملي وليس ضجة||وصول رقمي فوري||للعملاء حول العالم||ضمان 30 يوم||مسار الباقة أذكى'
+    assign texts = section.settings.card_texts_ar | default: 'كل صفحة تشرح ماذا يتضمن المنتج وكيف يعمل.||محتوى تعليمي مرتب وليس وعود دخل وهمية.||يحصل العميل على وصول رقمي بعد الدفع.||يمكن شراء المنتجات من أي مكان، والأسعار بالدولار.||فترة أمان عادلة تجعل قرار الشراء أسهل.||شراء الثلاثة يعطي المسار الكامل ويوفر 20%.'
+    assign closing_title = section.settings.closing_title_ar | default: 'قرار أقوى قبل ما تصرف وقتك ومالك.'
+    assign closing_text = section.settings.closing_text_ar | default: 'ابدأ بمنتج واحد، أو خذ الباقة الكاملة إذا تريد المسار كامل.'
+  endif
+
+  assign heading = heading | replace: 'customers already recognize', 'can buy with confidence'
+  assign heading = heading | replace: 'Built around ecommerce', 'Clear digital systems'
+  assign heading = heading | replace: 'مصمم حول منصات التجارة والدفع', 'أنظمة رقمية واضحة'
+  assign titles = titles | replace: 'Made for UAE and GCC buyers', 'Made for global buyers'
+  assign titles = titles | replace: 'مناسب لعملاء الإمارات والخليج', 'للعملاء حول العالم'
+  assign texts = texts | replace: 'Prices are shown in the old UAE currency wording.', 'Prices are shown in USD, and customers can buy from anywhere.'
+  assign texts = texts | replace: 'الأسعار بالدرهم الإماراتي لعملاء الإمارات', 'الأسعار بالدولار ويمكن الشراء من أي مكان'
+
+  assign fallback_titles = titles | split: '||'
+  assign fallback_texts = texts | split: '||'
+%}
+
+{{ 'logo-strip.css' | asset_url | stylesheet_tag }}
+
+<section class="credibility-strip" aria-label="{{ heading | escape }}">
+  <div class="credibility-strip__header">
+    {% if eyebrow != blank %}<p class="eyebrow">{{ eyebrow }}</p>{% endif %}
+    <h2>{{ heading }}</h2>
+    {% if intro != blank %}<p>{{ intro }}</p>{% endif %}
+  </div>
+
+  <div class="credibility-grid">
+    {% assign rendered_cards = 0 %}
+    {% for block in section.blocks %}
+      {% liquid
+        assign badge = block.settings.badge_en
+        assign title = block.settings.title_en
+        assign text = block.settings.text_en
+        if is_ar
+          assign badge = block.settings.badge_ar | default: badge
+          assign title = block.settings.title_ar | default: title
+          assign text = block.settings.text_ar | default: text
+        endif
+      %}
+      {% if title != blank or text != blank %}
+        {% assign rendered_cards = rendered_cards | plus: 1 %}
+        <article class="credibility-card" {{ block.shopify_attributes }}>
+          {% if badge != blank %}<span>{{ badge }}</span>{% endif %}
+          {% if title != blank %}<h3>{{ title }}</h3>{% endif %}
+          {% if text != blank %}<p>{{ text }}</p>{% endif %}
+        </article>
+      {% endif %}
+    {% endfor %}
+
+    {% if rendered_cards == 0 %}
+      {% for title in fallback_titles %}
+        {% liquid
+          assign fallback_index = forloop.index0
+          assign text = fallback_texts[fallback_index]
+          assign badge = forloop.index
+          if forloop.index < 10
+            assign badge = badge | prepend: '0'
+          endif
+        %}
+        <article class="credibility-card">
+          <span>{{ badge }}</span>
+          <h3>{{ title }}</h3>
+          <p>{{ text }}</p>
+        </article>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <div class="credibility-closer">
+    <strong>{{ closing_title }}</strong>
+    <p>{{ closing_text }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Credibility section",
+  "settings": [
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow - English" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow - Arabic" },
+    { "type": "text", "id": "heading_en", "label": "Heading - English" },
+    { "type": "text", "id": "heading_ar", "label": "Heading - Arabic" },
+    { "type": "textarea", "id": "intro_en", "label": "Intro - English" },
+    { "type": "textarea", "id": "intro_ar", "label": "Intro - Arabic" },
+    { "type": "textarea", "id": "card_titles_en", "label": "Card titles - English" },
+    { "type": "textarea", "id": "card_titles_ar", "label": "Card titles - Arabic" },
+    { "type": "textarea", "id": "card_texts_en", "label": "Card texts - English" },
+    { "type": "textarea", "id": "card_texts_ar", "label": "Card texts - Arabic" },
+    { "type": "text", "id": "closing_title_en", "label": "Closing title - English" },
+    { "type": "text", "id": "closing_title_ar", "label": "Closing title - Arabic" },
+    { "type": "textarea", "id": "closing_text_en", "label": "Closing text - English" },
+    { "type": "textarea", "id": "closing_text_ar", "label": "Closing text - Arabic" }
+  ],
+  "blocks": [
+    {
+      "type": "proof",
+      "name": "Editable trust card",
+      "settings": [
+        { "type": "text", "id": "badge_en", "label": "Badge - English" },
+        { "type": "text", "id": "badge_ar", "label": "Badge - Arabic" },
+        { "type": "text", "id": "title_en", "label": "Title - English" },
+        { "type": "text", "id": "title_ar", "label": "Title - Arabic" },
+        { "type": "textarea", "id": "text_en", "label": "Text - English" },
+        { "type": "textarea", "id": "text_ar", "label": "Text - Arabic" }
+      ]
+    },
+    {
+      "type": "label",
+      "name": "Legacy hidden card",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Old label" },
+        { "type": "text", "id": "logo_style", "label": "Old logo style" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Credibility section" }
+  ]
+}
+{% endschema %}

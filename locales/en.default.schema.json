@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "google_adsense": {
+      "name": "Google AdSense",
+      "enabled": "Enable ad",
+      "heading": "Optional heading",
+      "ad_slot": "Ad slot ID",
+      "ad_format": "Ad format",
+      "format_auto": "Responsive display ad",
+      "format_autorelaxed": "Multiplex ad",
+      "device_visibility": "Device visibility",
+      "all_devices": "All devices",
+      "desktop_only": "Desktop only",
+      "mobile_only": "Mobile only",
+      "text_alignment": "Text alignment",
+      "spacing_top": "Top spacing",
+      "spacing_bottom": "Bottom spacing",
+      "max_width": "Maximum container width",
+      "container_padding": "Container padding",
+      "background_color": "Background color"
+    }
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "search": "Search",
+    "account": "Account",
+    "cart": "Cart",
+    "language": "Language"
+    ,"menu": "Menu"
+  },
+  "general": {
+    "search": {
+      "placeholder": "Search digital products",
+      "submit": "Search",
+      "results_for": "Search results for \"{{ terms }}\""
+    },
+    "pagination": {
+      "page": "Page {{ number }}"
+    },
+    "404": {
+      "title": "Page Not Found",
+      "text": "The page you are looking for does not exist.",
+      "button": "Back to home"
+    },
+    "newsletter": {
+      "success": "Thanks for subscribing.",
+      "email": "Email address"
+    }
+  },
+  "header": {
+    "new": "New",
+    "shop": "Shop",
+    "ebooks": "Ebooks",
+    "templates": "Templates",
+    "bundles": "Bundles",
+    "learn": "Learn",
+    "free_goods": "Free Goods",
+    "deals": "Deals",
+    "cart_count": "{{ count }} Cart",
+    "contact": "Contact"
+  },
+  "contact": {
+    "prefer_email": "Prefer email? Write to us directly:",
+    "reply_time": "We reply within 24 hours.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Send message",
+    "success": "Thanks for contacting us. We will reply soon."
+  },
+  "faq": {
+    "support_help": "If anything goes wrong, email us at {{ email }}."
+  },
+  "cro": {
+    "shop": "Shop",
+    "bundle": "Bundle",
+    "free_guide": "Free Guide",
+    "faq": "FAQ",
+    "automatic_discount": "Discount applied automatically at checkout",
+    "bundle_cta": "Get the Bundle",
+    "choose_path": "Choose Your Path",
+    "bundle_price": "All 3 systems",
+    "single_price": "Choose one system",
+    "best_value": "Best Value · الأفضل قيمة"
+  },
+  "homepage": {
+    "hero": {
+      "eyebrow": "3 Digital Systems · Instant Access",
+      "heading": "Your First Online Income. A Clear System.",
+      "subheading": "Step-by-step systems for Amazon FBA, dropshipping, and AI income. Download instantly. Start from your phone tonight.",
+      "primary_cta": "Choose your path",
+      "secondary_cta": "See the full bundle →"
+    },
+    "pricing": {
+      "bundle_anchor": "Regular total",
+      "bundle_price": "Bundle total",
+      "bundle_savings": "Save 20%"
+    }
+  },
+  "sections": {
+    "google_adsense": {
+      "name": "Google AdSense",
+      "advertisement": "Advertisement",
+      "enabled": "Enable ad",
+      "heading": "Optional heading",
+      "ad_slot": "Ad slot ID",
+      "ad_format": "Ad format",
+      "format_auto": "Responsive display ad",
+      "format_autorelaxed": "Multiplex ad",
+      "device_visibility": "Device visibility",
+      "text_alignment": "Text alignment",
+      "spacing_top": "Top spacing",
+      "spacing_bottom": "Bottom spacing",
+      "max_width": "Maximum container width",
+      "container_padding": "Container padding",
+      "background_color": "Background color",
+      "all_devices": "All devices",
+      "desktop_only": "Desktop only",
+      "mobile_only": "Mobile only"
+    }
+  },
+  "products": {
+    "product": {
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "add_to_cart": "Add to Cart",
+      "quantity": "Quantity",
+      "choose_format": "Choose format",
+      "instant_download": "Instant download",
+      "digital_delivery": "Instant digital delivery",
+      "download_text": "Access the product immediately after checkout.",
+      "updates": "Digital product support",
+      "updates_text": "Great for downloadable files, guides, templates, courses, and prompts.",
+      "no_shipping": "No shipping needed",
+      "no_shipping_text": "Built for digital products with zero physical delivery.",
+      "what_included": "What's included",
+      "who_for": "Who it is for",
+      "benefits": "Benefits",
+      "how_it_works": "How it works",
+      "guarantee": "30-day money-back guarantee",
+      "guarantee_text": "Try the system for 30 days. If it is not a fit, request a refund according to your store policy.",
+      "reviews": "{{ count }} reviews",
+      "card_cta": "Choose Package"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Cart",
+      "empty": "Your cart is empty.",
+      "continue_shopping": "Continue shopping",
+      "remove": "Remove",
+      "quantity": "Quantity",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "update": "Update cart",
+      "note": "Taxes and discounts are calculated at checkout."
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Account",
+      "logout": "Log out",
+      "order_history": "Order history"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "register": "Create account"
+    },
+    "register": {
+      "title": "Create account",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create"
+    },
+    "reset_password": {
+      "title": "Reset password",
+      "submit": "Submit"
+    }
+  }
+}

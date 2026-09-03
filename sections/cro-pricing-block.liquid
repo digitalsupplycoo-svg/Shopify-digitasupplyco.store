@@ -1,0 +1,165 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+  assign eyebrow = section.settings.eyebrow_en
+  assign heading = section.settings.heading_en
+  assign intro = section.settings.intro_en
+  if is_ar
+    assign eyebrow = section.settings.eyebrow_ar | default: eyebrow
+    assign heading = section.settings.heading_ar | default: heading
+    assign intro = section.settings.intro_ar | default: intro
+  endif
+%}
+
+<section class="apple-products section-space section-surface" id="pricing" aria-labelledby="ProductGridHeading">
+  <div class="page-shell">
+    <header class="apple-products__header" data-reveal>
+      <p class="eyebrow">{{ eyebrow }}</p>
+      <h2 class="display-type" id="ProductGridHeading">{{ heading }}</h2>
+      <p>{{ intro }}</p>
+    </header>
+
+    <div class="apple-products__grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign card_product = block.settings.product
+          assign card_label = block.settings.label_en
+          assign card_title = block.settings.title_en
+          assign card_bullets = block.settings.bullets_en
+          assign card_cta = block.settings.cta_en
+          assign card_image = block.settings.image_en
+          if card_product != blank
+            if card_title == blank
+              assign card_title = card_product.title
+            endif
+            if card_image == blank
+              assign card_image = card_product.featured_image
+            endif
+          endif
+          if is_ar
+            assign card_label = block.settings.label_ar | default: card_label
+            assign card_title = block.settings.title_ar | default: card_title
+            assign card_bullets = block.settings.bullets_ar | default: card_bullets
+            assign card_cta = block.settings.cta_ar | default: card_cta
+            if block.settings.image_ar != blank
+              assign card_image = block.settings.image_ar
+            endif
+          endif
+          assign card_bullet_list = card_bullets | split: '|'
+        %}
+
+        <article class="apple-product-card" data-reveal {{ block.shopify_attributes }}>
+          <a class="apple-product-card__media" href="{% if card_product != blank %}{{ card_product.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}">
+            {% if card_image != blank %}
+              {{ card_image | image_url: width: 640 | image_tag: loading: 'lazy', widths: '240,360,480,640', sizes: '(max-width: 749px) 45vw, 240px', width: card_image.width, height: card_image.height, alt: card_title }}
+            {% else %}
+              <span>{{ card_label }}</span>
+            {% endif %}
+          </a>
+          <p class="eyebrow apple-product-card__label">{{ card_label }}</p>
+          <h3>{{ card_title }}</h3>
+          <ul>
+            {% for item in card_bullet_list limit: 3 %}
+              {% assign clean_item = item | strip %}
+              {% if clean_item != blank %}
+                <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>{{ clean_item }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+          {% if card_product != blank %}
+            <p class="apple-product-card__price">{{ card_product.price | money }}</p>
+          {% endif %}
+          <a class="button-primary apple-product-card__cta" href="{% if card_product != blank %}{{ card_product.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}">{{ card_cta }}</a>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .apple-products__header { max-width: 680px; margin: 0 auto 56px; text-align: center; }
+  .apple-products__header h2 { margin-bottom: 16px; }
+  .apple-products__header p:last-child { margin-bottom: 0; }
+  .apple-products__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+
+  .apple-product-card {
+    padding: 26px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .06) 0%, rgba(255, 255, 255, .02) 100%);
+    border: 1px solid var(--line);
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(12px);
+    transition: transform .35s var(--ease-out), border-color .35s ease, box-shadow .35s ease;
+  }
+
+  /* Light catches the top edge of the card on hover. */
+  .apple-product-card::before {
+    content: "";
+    height: 1px;
+    position: absolute;
+    inset: 0 0 auto;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .6), transparent);
+    opacity: 0;
+    transition: opacity .35s ease;
+  }
+
+  .apple-product-card:hover { transform: translateY(-6px); border-color: var(--line-strong); box-shadow: var(--shadow-card-hover); }
+  .apple-product-card:hover::before { opacity: 1; }
+
+  .apple-product-card__media { width: 128px; aspect-ratio: 4 / 5; margin-bottom: 24px; display: grid; place-items: center; overflow: hidden; background: rgba(255, 255, 255, .05); border: 1px solid var(--line); border-radius: var(--thumb-radius); }
+  .apple-product-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s var(--ease-out); }
+  .apple-product-card:hover .apple-product-card__media img { transform: scale(1.05); }
+  .apple-product-card__media span { color: var(--ink); font-size: 13px; font-weight: 600; text-align: center; }
+  .apple-product-card__label { margin-bottom: 10px; }
+  .apple-product-card h3 { margin-bottom: 20px; }
+  .apple-product-card ul { margin: 0 0 26px; padding: 0; display: grid; gap: 11px; list-style: none; }
+  .apple-product-card li { display: flex; align-items: flex-start; gap: 9px; color: var(--ink-secondary); font-size: 15px; }
+  .apple-product-card li svg { width: 18px; height: 18px; margin-top: 3px; flex: 0 0 auto; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .apple-product-card__price { margin-top: auto; margin-bottom: 18px; color: var(--ink); font-size: 30px; font-weight: 600; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  /* Flat white here: the bloom is reserved for the hero and bundle CTAs, so three
+     cards side by side don't compete with the page's primary action. */
+  .apple-product-card__cta { width: 100%; box-shadow: 0 0 0 1px rgba(255, 255, 255, .12); }
+  .apple-product-card:hover .apple-product-card__cta { box-shadow: var(--glow-soft); }
+  @media (max-width: 860px) { .apple-products__grid { grid-template-columns: 1fr; } .apple-product-card__media { width: 104px; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Apple product grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow - English", "default": "Choose your path" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow - Arabic", "default": "اختر مسارك" },
+    { "type": "text", "id": "heading_en", "label": "Heading - English", "default": "Three clear ways to begin." },
+    { "type": "text", "id": "heading_ar", "label": "Heading - Arabic", "default": "ثلاثة مسارات واضحة للبداية." },
+    { "type": "textarea", "id": "intro_en", "label": "Intro - English", "default": "Choose the system that matches your current goal. Each one is practical, focused, and available instantly." },
+    { "type": "textarea", "id": "intro_ar", "label": "Intro - Arabic", "default": "اختر النظام الأنسب لهدفك الحالي. كل نظام عملي ومركز ومتاح فوراً." }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product card",
+      "limit": 3,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "image_en", "label": "English image" },
+        { "type": "image_picker", "id": "image_ar", "label": "Arabic image" },
+        { "type": "text", "id": "label_en", "label": "Path label - English", "default": "Digital path" },
+        { "type": "text", "id": "label_ar", "label": "Path label - Arabic", "default": "مسار رقمي" },
+        { "type": "text", "id": "title_en", "label": "Title - English" },
+        { "type": "text", "id": "title_ar", "label": "Title - Arabic" },
+        { "type": "textarea", "id": "bullets_en", "label": "Outcomes - English (use |)", "default": "Clear first steps|Practical worksheets|Instant digital access" },
+        { "type": "textarea", "id": "bullets_ar", "label": "Outcomes - Arabic (use |)", "default": "خطوات أولى واضحة|أوراق عمل عملية|وصول رقمي فوري" },
+        { "type": "text", "id": "cta_en", "label": "Button - English", "default": "View the system" },
+        { "type": "text", "id": "cta_ar", "label": "Button - Arabic", "default": "شاهد النظام" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Apple product grid", "blocks": [{ "type": "product_card" }, { "type": "product_card" }, { "type": "product_card" }] }]
+}
+{% endschema %}

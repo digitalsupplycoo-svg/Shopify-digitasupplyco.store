@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Digital product cover</title>
+  <desc id="desc">Generic retro styled digital product cover.</desc>
+  <rect width="1536" height="1024" fill="#f7f0df"/>
+  <rect x="320" y="120" width="900" height="760" rx="8" fill="#fff7e5" stroke="#1e1e1c" stroke-width="7"/>
+  <rect x="320" y="120" width="900" height="120" fill="#f25e45"/>
+  <rect x="320" y="760" width="900" height="120" fill="#0c6f73"/>
+  <g fill="#1e1e1c" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-weight="900">
+    <text x="420" y="410" font-size="150">DIGITAL</text>
+    <text x="420" y="570" font-size="150">PRODUCT</text>
+  </g>
+  <circle cx="1040" cy="360" r="16" fill="#0c6f73"/>
+  <circle cx="1040" cy="420" r="16" fill="#f25e45"/>
+  <circle cx="1040" cy="480" r="16" fill="#d59a23"/>
+</svg>

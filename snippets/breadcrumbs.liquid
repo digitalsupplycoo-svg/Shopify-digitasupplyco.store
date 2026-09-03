@@ -1,0 +1,85 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+
+  assign home_label = 'Home'
+  assign products_label = 'Products'
+  assign blog_label = 'Blog'
+  if is_ar
+    assign home_label = 'الرئيسية'
+    assign products_label = 'المنتجات'
+    assign blog_label = 'المدونة'
+  endif
+
+  assign home_url = shop.url | append: routes.root_url
+  assign products_url = shop.url | append: routes.all_products_collection_url
+  assign breadcrumb_title = current_title | default: product.title
+%}
+
+<nav class="breadcrumbs" aria-label="{% if is_ar %}مسار الصفحة{% else %}Breadcrumb{% endif %}">
+  <ol>
+    <li><a href="{{ routes.root_url }}">{{ home_label }}</a></li>
+    {% if template.name == 'product' %}
+      <li><a href="{{ routes.all_products_collection_url }}">{{ products_label }}</a></li>
+      <li aria-current="page">{{ breadcrumb_title }}</li>
+    {% elsif template.name == 'article' %}
+      <li><a href="{{ blog.url }}">{{ blog.title | default: blog_label }}</a></li>
+      <li aria-current="page">{{ article.title }}</li>
+    {% elsif template.name == 'collection' %}
+      <li aria-current="page">{{ collection.title }}</li>
+    {% elsif template.name == 'blog' %}
+      <li aria-current="page">{{ blog.title }}</li>
+    {% elsif template.name == 'page' %}
+      <li aria-current="page">{{ page.title }}</li>
+    {% endif %}
+  </ol>
+</nav>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": {{ home_label | json }},
+      "item": {{ home_url | json }}
+    }
+    {% if template.name == 'product' %}
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ products_label | json }},
+        "item": {{ products_url | json }}
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ breadcrumb_title | json }},
+        "item": {{ canonical_url | json }}
+      }
+    {% elsif template.name == 'article' %}
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ blog.title | default: blog_label | json }},
+        "item": {{ shop.url | append: blog.url | json }}
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ article.title | json }},
+        "item": {{ canonical_url | json }}
+      }
+    {% else %}
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": {% if template.name == 'collection' %}{{ collection.title | json }}{% elsif template.name == 'blog' %}{{ blog.title | json }}{% else %}{{ page.title | json }}{% endif %},
+        "item": {{ canonical_url | json }}
+      }
+    {% endif %}
+  ]
+}
+</script>

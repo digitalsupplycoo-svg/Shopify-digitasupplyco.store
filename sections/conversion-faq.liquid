@@ -1,0 +1,107 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+  assign eyebrow = section.settings.eyebrow_en
+  assign heading = section.settings.heading_en
+  assign intro = section.settings.intro_en
+  if is_ar
+    assign eyebrow = section.settings.eyebrow_ar | default: eyebrow
+    assign heading = section.settings.heading_ar | default: heading
+    assign intro = section.settings.intro_ar | default: intro
+  endif
+%}
+
+<section class="apple-faq section-space" id="faq" aria-labelledby="FaqHeading">
+  <div class="page-shell apple-faq__inner">
+    <header class="apple-faq__header" data-reveal>
+      <p class="eyebrow">{{ eyebrow }}</p>
+      <h2 class="display-type" id="FaqHeading">{{ heading }}</h2>
+      <p>{{ intro }}</p>
+    </header>
+    <div class="apple-faq__list" data-reveal>
+      {% for block in section.blocks %}
+        {% liquid
+          assign question = block.settings.question_en
+          assign answer = block.settings.answer_en
+          if is_ar
+            assign question = block.settings.question_ar | default: question
+            assign answer = block.settings.answer_ar | default: answer
+          endif
+        %}
+        <details class="apple-faq__item" {{ block.shopify_attributes }}>
+          <summary><h3>{{ question }}</h3><span class="apple-faq__symbol" aria-hidden="true">+</span></summary>
+          <div class="apple-faq__answer">
+            <p>
+              {{ answer }}
+              {% if block.settings.append_support_email and settings.support_email != blank %}
+                {{ 'faq.support_help' | t: email: settings.support_email }}
+              {% endif %}
+              {% if shop.refund_policy != blank and block.id == 'refund' %}
+                <a href="{{ shop.refund_policy.url }}">{% if is_ar %}اقرأ سياسة الاسترداد{% else %}Read the Refund Policy{% endif %}</a>
+              {% endif %}
+            </p>
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .apple-faq { background: var(--bg); }
+  .apple-faq__inner { max-width: 840px; }
+  .apple-faq__header { margin-bottom: 40px; text-align: center; }
+  .apple-faq__header h2 { margin-bottom: 16px; }
+  .apple-faq__header p:last-child { margin-bottom: 0; }
+  .apple-faq__list { display: grid; gap: 10px; }
+  .apple-faq__item {
+    padding-inline: 22px;
+    background: rgba(255, 255, 255, .035);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    transition: background .25s ease, border-color .25s ease;
+  }
+  .apple-faq__item:hover { background: rgba(255, 255, 255, .06); border-color: var(--line-strong); }
+  .apple-faq__item[open] { background: rgba(255, 255, 255, .06); border-color: var(--line-strong); }
+  .apple-faq__item summary { min-height: 64px; padding-block: 20px; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--ink); font-size: 17px; font-weight: 600; list-style: none; cursor: pointer; }
+  .apple-faq__item summary h3 { margin: 0; font-size: inherit; }
+  .apple-faq__item summary::-webkit-details-marker { display: none; }
+  .apple-faq__symbol { color: var(--accent); font-size: 24px; font-weight: 400; transition: transform .2s ease; }
+  .apple-faq__item[open] .apple-faq__symbol { transform: rotate(45deg); }
+  .apple-faq__answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .25s ease; }
+  .apple-faq__answer > p { margin: 0; padding: 0 48px 0 0; overflow: hidden; color: var(--ink-secondary); }
+  [dir="rtl"] .apple-faq__answer > p { padding: 0 0 0 48px; }
+  .apple-faq__item[open] .apple-faq__answer { grid-template-rows: 1fr; }
+  .apple-faq__item[open] .apple-faq__answer > p { padding-bottom: 20px; }
+  @media (max-width: 749px) { .apple-faq__header { text-align: start; } .apple-faq__item summary { font-size: 16px; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Apple FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow - English", "default": "Questions, answered" },
+    { "type": "text", "id": "eyebrow_ar", "label": "Eyebrow - Arabic", "default": "إجابات واضحة" },
+    { "type": "text", "id": "heading_en", "label": "Heading - English", "default": "Everything to know before you begin." },
+    { "type": "text", "id": "heading_ar", "label": "Heading - Arabic", "default": "كل ما تحتاج معرفته قبل البداية." },
+    { "type": "textarea", "id": "intro_en", "label": "Intro - English", "default": "Clear answers about access, languages, refunds, and realistic expectations." },
+    { "type": "textarea", "id": "intro_ar", "label": "Intro - Arabic", "default": "إجابات واضحة عن الوصول واللغات والاسترداد والتوقعات الواقعية." }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question_en", "label": "Question - English", "default": "What exactly do I receive?" },
+        { "type": "textarea", "id": "answer_en", "label": "Answer - English", "default": "You receive a focused digital system with practical steps, checklists, and guided decisions." },
+        { "type": "text", "id": "question_ar", "label": "Question - Arabic", "default": "ماذا سأحصل عليه؟" },
+        { "type": "textarea", "id": "answer_ar", "label": "Answer - Arabic", "default": "ستحصل على نظام رقمي مركز مع خطوات عملية وقوائم تحقق وقرارات موجهة." },
+        { "type": "checkbox", "id": "append_support_email", "label": "Append support email", "default": false }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Apple FAQ", "blocks": [{ "type": "question" }, { "type": "question" }, { "type": "question" }, { "type": "question" }, { "type": "question" }, { "type": "question" }] }]
+}
+{% endschema %}

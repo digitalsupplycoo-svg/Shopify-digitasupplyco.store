@@ -1,0 +1,166 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+%}
+
+<div class="exit-popup" data-exit-popup hidden>
+  <div class="exit-popup__overlay" data-exit-popup-close></div>
+  <div class="exit-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="ExitPopupTitle">
+    <button class="exit-popup__close" type="button" data-exit-popup-close aria-label="Close">×</button>
+    <h2 id="ExitPopupTitle">{% if is_ar %}قبل أن تذهب — احصل على قائمة البداية المجانية{% else %}Before you go — grab the free starter checklist{% endif %}</h2>
+    <p>{% if is_ar %}ملف PDF من صفحة واحدة يساعدك تختار مسار الدخل الأونلاين الأنسب لوضعك. بدون شراء.{% else %}A 1-page PDF to help you pick the right online income path for your situation. No purchase needed.{% endif %}</p>
+    {% form 'customer', class: 'exit-popup__form' %}
+      <input type="hidden" name="contact[tags]" value="free-guide, choose-your-path">
+      <input type="email" name="contact[email]" placeholder="{% if is_ar %}البريد الإلكتروني{% else %}Email address{% endif %}" required>
+      <button type="submit">{% if is_ar %}أرسل لي القائمة ←{% else %}Send me the checklist →{% endif %}</button>
+    {% endform %}
+    <small>{% if is_ar %}بدون إزعاج. يمكنك إلغاء الاشتراك بأي وقت.{% else %}No spam. Unsubscribe anytime.{% endif %}</small>
+    <p class="exit-popup__thanks" data-exit-popup-thanks hidden>{% if is_ar %}تفقد بريدك — أرسلناه لك.{% else %}Check your email — it's on its way.{% endif %}</p>
+  </div>
+</div>
+
+{% stylesheet %}
+  .exit-popup[hidden] {
+    display: none;
+  }
+
+  .exit-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
+
+  .exit-popup__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .exit-popup__dialog {
+    position: relative;
+    width: min(100%, 520px);
+    padding: 1.5rem;
+    background: var(--color-surface);
+    border-radius: 8px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  .exit-popup__close {
+    position: absolute;
+    top: 0.7rem;
+    inset-inline-end: 0.7rem;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    background: transparent;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .exit-popup h2 {
+    margin: 0 2rem 0.7rem 0;
+    font-family: var(--heading);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 0.96;
+    text-transform: uppercase;
+  }
+
+  .exit-popup__form {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .exit-popup__form input,
+  .exit-popup__form button {
+    min-height: 52px;
+    padding: 0 1rem;
+    border-radius: 5px;
+  }
+
+  .exit-popup__form input {
+    border: 1px solid #DCE4EC;
+  }
+
+  .exit-popup__form button {
+    color: #fff;
+    background: #123A6B;
+    border: 0;
+    font-weight: 900;
+  }
+
+  .exit-popup__thanks {
+    color: #123A6B;
+    font-weight: 900;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (function () {
+    var popup = document.querySelector('[data-exit-popup]');
+    if (!popup) return;
+    var form = popup.querySelector('.exit-popup__form');
+    var thanks = popup.querySelector('[data-exit-popup-thanks]');
+    var cookieName = 'exit_popup_shown';
+    var hasShown = document.cookie.indexOf(cookieName + '=1') !== -1;
+    var inactivityTimer;
+
+    function setCookie() {
+      var date = new Date();
+      date.setDate(date.getDate() + 7);
+      document.cookie = cookieName + '=1; expires=' + date.toUTCString() + '; path=/; SameSite=Lax';
+    }
+
+    function openPopup(force) {
+      if (!force && hasShown) return;
+      popup.hidden = false;
+      hasShown = true;
+      setCookie();
+    }
+
+    function closePopup() {
+      popup.hidden = true;
+    }
+
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('[data-exit-popup-open]')) openPopup(true);
+      if (event.target.closest('[data-exit-popup-close]')) closePopup();
+    });
+
+    document.addEventListener('mouseout', function (event) {
+      if (window.innerWidth < 769 || hasShown) return;
+      if (event.clientY <= 8 && !event.relatedTarget) openPopup(false);
+    });
+
+    function resetInactivity() {
+      if (window.innerWidth > 768 || hasShown) return;
+      window.clearTimeout(inactivityTimer);
+      inactivityTimer = window.setTimeout(function () { openPopup(false); }, 60000);
+    }
+    ['touchstart', 'scroll', 'keydown'].forEach(function (name) {
+      window.addEventListener(name, resetInactivity, { passive: true });
+    });
+    resetInactivity();
+
+    if (form && thanks) {
+      form.addEventListener('submit', function () {
+        window.setTimeout(function () {
+          form.hidden = true;
+          thanks.hidden = false;
+        }, 50);
+      });
+    }
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Exit intent popup",
+  "presets": [{ "name": "Exit intent popup" }]
+}
+{% endschema %}

@@ -1,0 +1,159 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+%}
+
+<section class="cro-proof" id="free-guide" aria-label="{% if is_ar %}لماذا DigitalSupply Co{% else %}Why DigitalSupply Co{% endif %}">
+  <div class="cro-proof__copy">
+    <p class="eyebrow">{% if is_ar %}وضوح قبل القرار{% else %}Clarity before you buy{% endif %}</p>
+    <h2>{% if is_ar %}مصمم للمبتدئين الذين يريدون بداية مرتبة{% else %}Built for beginners who want a clear start{% endif %}</h2>
+    <p>
+      {% if is_ar %}
+        DigitalSupply Co يجمع لك المسارات الثلاثة الأكثر طلباً للدخل الرقمي في تجربة بسيطة: محتوى واضح، خطوات قابلة للتنفيذ، وتسليم فوري بدون تعقيد.
+      {% else %}
+        DigitalSupply Co brings the three most requested digital income paths into one simple buying experience: clear guidance, practical next steps, and instant access without confusion.
+      {% endif %}
+    </p>
+    <aside class="founder-card">
+      <span class="founder-card__avatar" aria-hidden="true">M</span>
+      <div><strong>— Maryam, DigitalSupply Co</strong><small>{% if is_ar %}المؤسِسة{% else %}Founder{% endif %}</small></div>
+    </aside>
+  </div>
+
+  <div class="cro-proof__grid">
+    <article>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
+      <strong>{% if is_ar %}وصول فوري{% else %}Instant access{% endif %}</strong>
+      <span>{% if is_ar %}منتجات رقمية تصل بعد الدفع بدون شحن أو انتظار.{% else %}Digital products delivered after checkout with no shipping or waiting.{% endif %}</span>
+    </article>
+    <article>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+      <strong>{% if is_ar %}دفع آمن{% else %}Secure Shopify checkout{% endif %}</strong>
+      <span>{% if is_ar %}مسار شراء واضح ومشفّر عبر Shopify.{% else %}A clear encrypted purchase flow powered by Shopify.{% endif %}</span>
+    </article>
+    <article>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h10"></path><path d="M9 5v14"></path><path d="M5 19h8"></path><path d="M15 9h5"></path><path d="M17.5 9v10"></path><path d="M15 19h5"></path></svg>
+      <strong>{% if is_ar %}عربي + إنجليزي{% else %}Arabic + English{% endif %}</strong>
+      <span>{% if is_ar %}تجربة مناسبة للزوار العرب والإنجليز مع تخطيط RTL احترافي.{% else %}A bilingual experience with polished RTL support for Arabic shoppers.{% endif %}</span>
+    </article>
+    <article>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19V5"></path><path d="M4 5h12l-1.5 4L16 13H4"></path></svg>
+      <strong>{% if is_ar %}مسار واضح{% else %}Clear beginner path{% endif %}</strong>
+      <span>{% if is_ar %}اختر Amazon FBA أو الدروبشيبينغ أو AI Income حسب هدفك الحالي.{% else %}Choose Amazon FBA, dropshipping, or AI Income based on your current goal.{% endif %}</span>
+    </article>
+  </div>
+</section>
+
+{% stylesheet %}
+  .cro-proof {
+    width: min(var(--page-width), calc(100vw - 2rem));
+    margin: 4rem auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .cro-proof__copy,
+  .cro-proof__grid article {
+    background: var(--color-surface);
+    border: 1px solid rgba(16, 36, 62, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 18px 44px rgba(16, 36, 62, 0.06);
+  }
+
+  .cro-proof__copy {
+    padding: clamp(1.3rem, 3vw, 2rem);
+  }
+
+  .founder-card { margin-top: 1.5rem; padding: 1rem; display: flex; gap: .8rem; align-items: center; background: #EAF0F7; border: 1px solid var(--color-border); border-radius: 8px; }
+  .founder-card__avatar { inline-size: 44px; block-size: 44px; display: grid; place-items: center; flex: 0 0 auto; color: #fff; background: var(--color-primary); border-radius: 50%; font-weight: 800; }
+  .founder-card strong, .founder-card small { display: block; color: var(--color-ink); }
+  .founder-card small { color: var(--color-ink-soft); }
+
+  .cro-proof h2 {
+    margin: 0 0 0.85rem;
+    color: #10243E;
+    font-family: var(--heading);
+    font-size: clamp(2.3rem, 5vw, 4.7rem);
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .cro-proof p {
+    color: var(--color-muted);
+    font-size: 1.06rem;
+    line-height: 1.65;
+  }
+
+  .cro-proof__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .cro-proof__grid article {
+    padding: 1.25rem;
+  }
+
+  .cro-proof__grid svg {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 1rem;
+    fill: none;
+    stroke: #123A6B;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .cro-proof__grid strong {
+    display: block;
+    color: #10243E;
+    font-family: var(--heading);
+    font-size: clamp(1.25rem, 2.2vw, 1.9rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .cro-proof__grid span {
+    display: block;
+    margin-top: 0.55rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+  }
+
+  [dir="rtl"] .cro-proof h2,
+  [dir="rtl"] .cro-proof__grid strong {
+    font-family: "IBM Plex Sans Arabic", "Cairo", Tahoma, Arial, sans-serif;
+    letter-spacing: 0;
+    line-height: 1.14;
+    text-transform: none;
+  }
+
+  @media (max-width: 860px) {
+    .cro-proof {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .cro-proof {
+      margin: 3rem auto;
+    }
+
+    .cro-proof__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CRO honest proof",
+  "presets": [{ "name": "CRO honest proof" }]
+}
+{% endschema %}

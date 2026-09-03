@@ -1,0 +1,566 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+
+  assign bundle_handles = section.settings.bundle_product_handles | default: 'amazon-fba-blueprint,dropshipping-mastery-system,online-income-system'
+  assign bundle_handle_list = bundle_handles | split: ','
+  assign cart_product_handles = '|'
+  assign bundle_count = 0
+  assign bundle_size = 0
+  assign bundle_missing_count = 0
+  assign bundle_total = 0
+
+  for item in cart.items
+    assign cart_product_handles = cart_product_handles | append: item.product.handle | append: '|'
+  endfor
+
+  for raw_handle in bundle_handle_list
+    assign bundle_handle = raw_handle | strip
+    assign bundle_product = all_products[bundle_handle]
+    if bundle_product == blank
+      assign bundle_handle_clean = bundle_handle | remove: '™'
+      assign bundle_product = all_products[bundle_handle_clean]
+    endif
+    if bundle_product == blank
+      assign bundle_handle_tm = bundle_handle | append: '™'
+      assign bundle_product = all_products[bundle_handle_tm]
+    endif
+
+    if bundle_product != blank
+      assign bundle_handle = bundle_product.handle
+      assign handle_token = '|' | append: bundle_handle | append: '|'
+      assign bundle_size = bundle_size | plus: 1
+      assign bundle_total = bundle_total | plus: bundle_product.price
+
+      if cart_product_handles contains handle_token
+        assign bundle_count = bundle_count | plus: 1
+      else
+        assign bundle_missing_count = bundle_missing_count | plus: 1
+      endif
+    endif
+  endfor
+
+  assign bundle_savings = bundle_total | times: section.settings.bundle_discount_percent | divided_by: 100
+  assign bundle_eyebrow = section.settings.bundle_eyebrow_en
+  assign bundle_title = section.settings.bundle_title_en
+  assign bundle_text = section.settings.bundle_text_en
+  assign bundle_complete_title = section.settings.bundle_complete_title_en
+  assign bundle_complete_text = section.settings.bundle_complete_text_en
+  assign bundle_savings_label = section.settings.bundle_savings_label_en
+  assign bundle_code_label = section.settings.bundle_code_label_en
+  assign bundle_add_label = section.settings.bundle_add_label_en
+  assign bundle_add_all_label = section.settings.bundle_add_all_label_en
+  assign bundle_in_cart_label = section.settings.bundle_in_cart_label_en
+  assign bundle_complete_cta = section.settings.bundle_complete_cta_en
+  assign bundle_loading_label = section.settings.bundle_loading_label_en
+  assign bundle_note = section.settings.bundle_note_en
+
+  if is_ar
+    assign bundle_eyebrow = section.settings.bundle_eyebrow_ar | default: bundle_eyebrow
+    assign bundle_title = section.settings.bundle_title_ar | default: bundle_title
+    assign bundle_text = section.settings.bundle_text_ar | default: bundle_text
+    assign bundle_complete_title = section.settings.bundle_complete_title_ar | default: bundle_complete_title
+    assign bundle_complete_text = section.settings.bundle_complete_text_ar | default: bundle_complete_text
+    assign bundle_savings_label = section.settings.bundle_savings_label_ar | default: bundle_savings_label
+    assign bundle_code_label = section.settings.bundle_code_label_ar | default: bundle_code_label
+    assign bundle_add_label = section.settings.bundle_add_label_ar | default: bundle_add_label
+    assign bundle_add_all_label = section.settings.bundle_add_all_label_ar | default: bundle_add_all_label
+    assign bundle_in_cart_label = section.settings.bundle_in_cart_label_ar | default: bundle_in_cart_label
+    assign bundle_complete_cta = section.settings.bundle_complete_cta_ar | default: bundle_complete_cta
+    assign bundle_loading_label = section.settings.bundle_loading_label_ar | default: bundle_loading_label
+    assign bundle_note = section.settings.bundle_note_ar | default: bundle_note
+  endif
+
+  if bundle_size > 0 and bundle_count >= bundle_size
+    assign bundle_title = bundle_complete_title
+    assign bundle_text = bundle_complete_text
+  endif
+
+  assign discount_redirect_cart = routes.cart_url | url_encode
+  assign discount_redirect_checkout = '/checkout' | url_encode
+  assign discount_cart_url = routes.root_url | append: 'discount/' | append: section.settings.bundle_code | append: '?redirect=' | append: discount_redirect_cart
+  assign discount_checkout_url = routes.root_url | append: 'discount/' | append: section.settings.bundle_code | append: '?redirect=' | append: discount_redirect_checkout
+%}
+
+{{ 'cart-bundle.css' | asset_url | stylesheet_tag }}
+
+<section class="cart-wrap">
+  <h1>{{ 'cart.general.title' | t }}</h1>
+
+  {% if cart.item_count == 0 %}
+    <p class="empty-state">{{ 'cart.general.empty' | t }}</p>
+    <a class="button-link" href="{{ routes.all_products_collection_url }}">{{ 'cart.general.continue_shopping' | t }}</a>
+  {% else %}
+    <form class="cart-form" action="{{ routes.cart_url }}" method="post" novalidate>
+      <div class="cart-items">
+        {% for item in cart.items %}
+          <article class="cart-item">
+            {% liquid
+              assign cart_item_image = item.image
+              assign cart_image_alt = item.product.title
+
+              if item.product.media.size > 1
+                for media in item.product.media
+                  assign media_alt_down = media.alt | downcase
+                  assign media_src_down = media.preview_image | image_url: width: 640 | downcase
+
+                  if is_ar
+                    if media_alt_down contains 'arabic' or media_alt_down contains 'عربي' or media_src_down contains 'arabic' or media_src_down contains '_ar' or media_src_down contains '-ar'
+                      assign cart_item_image = media.preview_image
+                      assign cart_image_alt = media.alt | default: item.product.title
+                      break
+                    endif
+                  else
+                    if media_alt_down contains 'english' or media_alt_down contains 'انجليزي' or media_src_down contains 'english' or media_src_down contains '_en' or media_src_down contains '-en'
+                      assign cart_item_image = media.preview_image
+                      assign cart_image_alt = media.alt | default: item.product.title
+                      break
+                    endif
+                  endif
+                endfor
+              endif
+            %}
+
+            <a class="cart-item__media" href="{{ item.url }}" aria-label="{{ item.product.title | escape }}">
+              {% if cart_item_image %}
+                {{ cart_item_image | image_url: width: 620 | image_tag: loading: 'lazy', alt: cart_image_alt }}
+              {% else %}
+                <img src="{{ 'cover-digital-product-generic.svg' | asset_url }}" width="1536" height="1024" loading="lazy" alt="{{ item.product.title | escape }}">
+              {% endif %}
+            </a>
+
+            <div class="cart-item__details">
+              <h2><a href="{{ item.url }}">{{ item.product.title }}</a></h2>
+              {% unless item.product.has_only_default_variant %}
+                <p>{{ item.variant.title }}</p>
+              {% endunless %}
+              <a href="{{ item.url_to_remove }}">{{ 'cart.general.remove' | t }}</a>
+            </div>
+            <div class="cart-item__controls">
+              <label for="Updates-{{ item.key }}">{{ 'cart.general.quantity' | t }}</label>
+              <input id="Updates-{{ item.key }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+              <p class="cart-item__price">{{ item.final_line_price | money }}</p>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <div class="cart-summary">
+        <p class="cart-total">{{ 'cart.general.subtotal' | t }}: {{ cart.total_price | money }}</p>
+        <p class="cart-note">{{ 'cart.general.note' | t }}</p>
+        <button class="button-link" type="submit" name="update">{{ 'cart.general.update' | t }}</button>
+        <button class="cart__checkout" type="submit" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+      </div>
+    </form>
+
+    {% if section.settings.show_bundle_upsell %}
+      <aside class="bundle-upsell" aria-label="{{ bundle_title | escape }}">
+        <div class="bundle-upsell__copy">
+          {% if bundle_eyebrow != blank %}
+            <p class="eyebrow">{{ bundle_eyebrow }}</p>
+          {% endif %}
+          <h2>{{ bundle_title }}</h2>
+          {% if bundle_text != blank %}
+            <p>{{ bundle_text }}</p>
+          {% endif %}
+
+          <div class="bundle-upsell__meta">
+            {% if bundle_total > 0 %}
+              <span>{{ bundle_savings_label }} <strong>{{ bundle_savings | money }}</strong></span>
+            {% endif %}
+            {% if section.settings.bundle_code != blank %}
+              <span>{{ bundle_code_label }} <strong>{{ section.settings.bundle_code }}</strong></span>
+            {% endif %}
+          </div>
+
+          {% if bundle_note != blank %}
+            <p class="bundle-upsell__note">{{ bundle_note }}</p>
+          {% endif %}
+        </div>
+
+        <div class="bundle-upsell__panel">
+          <div class="bundle-upsell__products">
+            {% for raw_handle in bundle_handle_list %}
+              {% liquid
+                assign bundle_handle = raw_handle | strip
+                assign recommended_product = all_products[bundle_handle]
+                if recommended_product == blank
+                  assign bundle_handle_clean = bundle_handle | remove: '™'
+                  assign recommended_product = all_products[bundle_handle_clean]
+                endif
+                if recommended_product == blank
+                  assign bundle_handle_tm = bundle_handle | append: '™'
+                  assign recommended_product = all_products[bundle_handle_tm]
+                endif
+                if recommended_product != blank
+                  assign bundle_handle = recommended_product.handle
+                endif
+                assign handle_token = '|' | append: bundle_handle | append: '|'
+                assign product_is_in_cart = false
+                assign recommended_image = recommended_product.featured_image
+                assign recommended_image_alt = recommended_product.title
+
+                if cart_product_handles contains handle_token
+                  assign product_is_in_cart = true
+                endif
+
+                if recommended_product.media.size > 1
+                  for media in recommended_product.media
+                    assign media_alt_down = media.alt | downcase
+                    assign media_src_down = media.preview_image | image_url: width: 480 | downcase
+
+                    if is_ar
+                      if media_alt_down contains 'arabic' or media_alt_down contains 'عربي' or media_src_down contains 'arabic' or media_src_down contains '_ar' or media_src_down contains '-ar'
+                        assign recommended_image = media.preview_image
+                        assign recommended_image_alt = media.alt | default: recommended_product.title
+                        break
+                      endif
+                    else
+                      if media_alt_down contains 'english' or media_alt_down contains 'انجليزي' or media_src_down contains 'english' or media_src_down contains '_en' or media_src_down contains '-en'
+                        assign recommended_image = media.preview_image
+                        assign recommended_image_alt = media.alt | default: recommended_product.title
+                        break
+                      endif
+                    endif
+                  endfor
+                endif
+              %}
+
+              {% if recommended_product != blank %}
+                {% assign recommended_variant = recommended_product.selected_or_first_available_variant %}
+                <article class="bundle-product{% if product_is_in_cart %} is-in-cart{% endif %}">
+                  <a class="bundle-product__media" href="{{ recommended_product.url }}" aria-label="{{ recommended_product.title | escape }}">
+                    {% if recommended_image != blank %}
+                      {{ recommended_image | image_url: width: 420 | image_tag: loading: 'lazy', alt: recommended_image_alt }}
+                    {% else %}
+                      <img src="{{ 'cover-digital-product-generic.svg' | asset_url }}" width="1536" height="1024" loading="lazy" alt="{{ recommended_product.title | escape }}">
+                    {% endif %}
+                  </a>
+
+                  <div class="bundle-product__body">
+                    <h3><a href="{{ recommended_product.url }}">{{ recommended_product.title }}</a></h3>
+                    <p>{{ recommended_product.price | money }}</p>
+
+                    {% if product_is_in_cart %}
+                      <span class="bundle-status">{{ bundle_in_cart_label }}</span>
+                    {% elsif recommended_variant.available %}
+                      <span class="bundle-status bundle-status--ready">{{ bundle_add_label }}</span>
+                    {% endif %}
+                  </div>
+                </article>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          {% if bundle_size > 0 %}
+            {% if bundle_missing_count > 0 %}
+              <form
+                class="bundle-add-all"
+                action="{{ routes.cart_add_url }}"
+                method="post"
+                data-bundle-add-all
+                data-add-url="{{ routes.cart_add_url }}.js"
+                data-discount-url="{{ discount_cart_url }}"
+                data-loading-text="{{ bundle_loading_label | escape }}"
+                data-error-text="{% if is_ar %}تعذر إضافة المنتجات الناقصة للباقة. حاولي مرة ثانية أو افتحي صفحة المنتج مباشرة.{% else %}We could not add the missing bundle products. Please try again or open the product page directly.{% endif %}"
+              >
+                {% assign bundle_form_index = 0 %}
+                {% for raw_handle in bundle_handle_list %}
+                  {% liquid
+                    assign bundle_handle = raw_handle | strip
+                    assign bundle_product = all_products[bundle_handle]
+                    if bundle_product == blank
+                      assign bundle_handle_clean = bundle_handle | remove: '™'
+                      assign bundle_product = all_products[bundle_handle_clean]
+                    endif
+                    if bundle_product == blank
+                      assign bundle_handle_tm = bundle_handle | append: '™'
+                      assign bundle_product = all_products[bundle_handle_tm]
+                    endif
+                    if bundle_product != blank
+                      assign bundle_handle = bundle_product.handle
+                    endif
+                    assign handle_token = '|' | append: bundle_handle | append: '|'
+                    assign product_is_in_cart = false
+
+                    if cart_product_handles contains handle_token
+                      assign product_is_in_cart = true
+                    endif
+                  %}
+
+                  {% if bundle_product != blank and product_is_in_cart == false %}
+                    {% assign bundle_variant = bundle_product.selected_or_first_available_variant %}
+                    {% if bundle_variant.available %}
+                      <input type="hidden" name="items[{{ bundle_form_index }}][id]" value="{{ bundle_variant.id }}" data-bundle-variant-id>
+                      <input type="hidden" name="items[{{ bundle_form_index }}][quantity]" value="1" data-bundle-quantity>
+                      {% assign bundle_form_index = bundle_form_index | plus: 1 %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                <input type="hidden" name="return_to" value="{{ discount_cart_url }}">
+                <button class="bundle-add-all__button" type="submit">{{ bundle_add_all_label }}</button>
+                <p class="bundle-add-all__error" data-bundle-add-all-error hidden></p>
+              </form>
+            {% else %}
+              <a class="bundle-add-all__button" href="{{ discount_checkout_url }}">{{ bundle_complete_cta }}</a>
+            {% endif %}
+          {% endif %}
+        </div>
+      </aside>
+
+      <script>
+        (() => {
+          const forms = document.querySelectorAll('[data-bundle-add-all]');
+          forms.forEach((form) => {
+            form.addEventListener('submit', async (event) => {
+              if (!window.fetch) return;
+
+              const variantInputs = Array.from(form.querySelectorAll('[data-bundle-variant-id]'));
+              const items = variantInputs.map((input) => {
+                const quantityInput = form.querySelector(`[name="${input.name.replace('[id]', '[quantity]')}"]`);
+                return {
+                  id: Number(input.value),
+                  quantity: quantityInput ? Number(quantityInput.value) : 1
+                };
+              }).filter((item) => item.id && item.quantity > 0);
+
+              if (!items.length) return;
+
+              event.preventDefault();
+              const button = form.querySelector('button[type="submit"]');
+              const errorNode = form.querySelector('[data-bundle-add-all-error]');
+              const originalLabel = button ? button.textContent : '';
+
+              if (errorNode) {
+                errorNode.hidden = true;
+                errorNode.textContent = '';
+              }
+
+              if (button) {
+                button.disabled = true;
+                button.textContent = form.dataset.loadingText || originalLabel;
+              }
+
+              try {
+                const response = await fetch(form.dataset.addUrl, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                  },
+                  body: JSON.stringify({ items })
+                });
+
+                if (!response.ok) throw new Error('Bundle add failed');
+                window.location.href = form.dataset.discountUrl;
+              } catch (error) {
+                if (button) {
+                  button.disabled = false;
+                  button.textContent = originalLabel;
+                }
+                if (errorNode) {
+                  errorNode.textContent = form.dataset.errorText || 'We could not add the missing bundle products. Please try again.';
+                  errorNode.hidden = false;
+                }
+              }
+            });
+          });
+        })();
+      </script>
+    {% endif %}
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_bundle_upsell",
+      "label": "Show bundle upsell",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bundle_product_handles",
+      "label": "Bundle product handles",
+      "default": "amazon-fba-blueprint,dropshipping-mastery-system,online-income-system",
+      "info": "Separate handles with commas."
+    },
+    {
+      "type": "text",
+      "id": "bundle_code",
+      "label": "Bundle discount code",
+      "default": "BUNDLE20"
+    },
+    {
+      "type": "range",
+      "id": "bundle_discount_percent",
+      "label": "Bundle discount percent",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "default": 20
+    },
+    {
+      "type": "text",
+      "id": "bundle_eyebrow_en",
+      "label": "Bundle eyebrow - English",
+      "default": "Bundle smarter"
+    },
+    {
+      "type": "text",
+      "id": "bundle_eyebrow_ar",
+      "label": "Bundle eyebrow - Arabic",
+      "default": "وفّري أكثر مع الباقة"
+    },
+    {
+      "type": "text",
+      "id": "bundle_title_en",
+      "label": "Bundle title - English",
+      "default": "Complete the 3-system bundle for $71.98"
+    },
+    {
+      "type": "text",
+      "id": "bundle_title_ar",
+      "label": "Bundle title - Arabic",
+      "default": "كمّلي الأنظمة الثلاثة مقابل $71.98"
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_text_en",
+      "label": "Bundle text - English",
+      "default": "Your current product is a strong start. Add the other systems and get all three for $71.98 instead of $89.97. The $17.99 saving applies automatically at checkout."
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_text_ar",
+      "label": "Bundle text - Arabic",
+      "default": "اختيارك الحالي بداية ممتازة. أضيفي باقي الأنظمة وخذي الثلاثة مقابل $71.98 بدل $89.97. توفير $17.99 يطبق تلقائياً عند الدفع."
+    },
+    {
+      "type": "text",
+      "id": "bundle_complete_title_en",
+      "label": "Complete bundle title - English",
+      "default": "Your bundle is complete"
+    },
+    {
+      "type": "text",
+      "id": "bundle_complete_title_ar",
+      "label": "Complete bundle title - Arabic",
+      "default": "الباقة صارت مكتملة"
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_complete_text_en",
+      "label": "Complete bundle text - English",
+      "default": "All three systems are now in your cart. Continue to checkout to activate the $17.99 bundle saving."
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_complete_text_ar",
+      "label": "Complete bundle text - Arabic",
+      "default": "الأنظمة الثلاثة موجودة الآن في السلة. تابعي للدفع لتفعيل توفير $17.99."
+    },
+    {
+      "type": "text",
+      "id": "bundle_savings_label_en",
+      "label": "Savings label - English",
+      "default": "Estimated saving:"
+    },
+    {
+      "type": "text",
+      "id": "bundle_savings_label_ar",
+      "label": "Savings label - Arabic",
+      "default": "توفيرك التقريبي:"
+    },
+    {
+      "type": "text",
+      "id": "bundle_code_label_en",
+      "label": "Code label - English",
+      "default": "Bundle code:"
+    },
+    {
+      "type": "text",
+      "id": "bundle_code_label_ar",
+      "label": "Code label - Arabic",
+      "default": "كود الباقة:"
+    },
+    {
+      "type": "text",
+      "id": "bundle_add_label_en",
+      "label": "Add button - English",
+      "default": "Ready to add"
+    },
+    {
+      "type": "text",
+      "id": "bundle_add_label_ar",
+      "label": "Add button - Arabic",
+      "default": "جاهز للإضافة"
+    },
+    {
+      "type": "text",
+      "id": "bundle_add_all_label_en",
+      "label": "Add all button - English",
+      "default": "Add missing products and save $17.99"
+    },
+    {
+      "type": "text",
+      "id": "bundle_add_all_label_ar",
+      "label": "Add all button - Arabic",
+      "default": "أضيفي المنتجات الناقصة ووفّري $17.99"
+    },
+    {
+      "type": "text",
+      "id": "bundle_in_cart_label_en",
+      "label": "In-cart label - English",
+      "default": "In cart"
+    },
+    {
+      "type": "text",
+      "id": "bundle_in_cart_label_ar",
+      "label": "In-cart label - Arabic",
+      "default": "موجود في السلة"
+    },
+    {
+      "type": "text",
+      "id": "bundle_complete_cta_en",
+      "label": "Complete bundle CTA - English",
+      "default": "Checkout with $17.99 bundle saving"
+    },
+    {
+      "type": "text",
+      "id": "bundle_complete_cta_ar",
+      "label": "Complete bundle CTA - Arabic",
+      "default": "ادفعي الآن مع توفير $17.99"
+    },
+    {
+      "type": "text",
+      "id": "bundle_loading_label_en",
+      "label": "Loading label - English",
+      "default": "Adding bundle..."
+    },
+    {
+      "type": "text",
+      "id": "bundle_loading_label_ar",
+      "label": "Loading label - Arabic",
+      "default": "جاري إضافة الباقة..."
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_note_en",
+      "label": "Bundle note - English",
+      "default": "The bundle discount is designed for customers buying the three digital systems together."
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_note_ar",
+      "label": "Bundle note - Arabic",
+      "default": "خصم الباقة مخصص للعملاء الذين يشترون الأنظمة الرقمية الثلاثة معاً."
+    }
+  ]
+}
+{% endschema %}

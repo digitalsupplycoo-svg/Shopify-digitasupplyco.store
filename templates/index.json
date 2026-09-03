@@ -1,0 +1,140 @@
+{
+  "sections": {
+    "hero": {
+      "type": "digital-products-hero",
+      "settings": {
+        "accessibility_label": "DigitalSupply Co digital systems",
+        "video_url": "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4",
+        "eyebrow_en": "Digital systems · Instant access",
+        "eyebrow_ar": "أنظمة رقمية · وصول فوري",
+        "heading_en": "Your first online income.",
+        "heading_ar": "ابدأ مسارك نحو دخل رقمي.",
+        "heading_secondary_en": "A clear system.",
+        "heading_secondary_ar": "بنظام واضح.",
+        "subheading_en": "Step-by-step systems for Amazon FBA, dropshipping, and AI-powered digital income.",
+        "subheading_ar": "أنظمة عملية خطوة بخطوة لمسارات Amazon FBA والدروبشيبينغ والدخل الرقمي بالذكاء الاصطناعي.",
+        "primary_label_en": "Choose your path",
+        "primary_label_ar": "اختر مسارك",
+        "primary_link": "#pricing",
+        "secondary_label_en": "See the full bundle →",
+        "secondary_label_ar": "شاهد الباقة الكاملة ←",
+        "secondary_link": "#bundle",
+        "trust_pill_en": "3 complete systems · Instant access",
+        "trust_pill_ar": "٣ أنظمة كاملة · وصول فوري",
+        "trust_one_en": "Instant download",
+        "trust_one_ar": "تحميل فوري",
+        "trust_two_en": "30-day money-back",
+        "trust_two_ar": "ضمان 30 يوم",
+        "trust_three_en": "Arabic & English",
+        "trust_three_ar": "عربي وإنجليزي",
+        "stat_1_glyph": "#",
+        "stat_1_value": "3",
+        "stat_1_suffix": "",
+        "stat_1_decimals": "0",
+        "stat_1_label_en": "Complete systems",
+        "stat_1_label_ar": "أنظمة كاملة",
+        "stat_2_glyph": "%",
+        "stat_2_value": "30",
+        "stat_2_suffix": "-day",
+        "stat_2_suffix_ar": " يوم",
+        "stat_2_decimals": "0",
+        "stat_2_label_en": "Money-back guarantee",
+        "stat_2_label_ar": "ضمان استرداد",
+        "stat_3_glyph": "*",
+        "stat_3_value": "24",
+        "stat_3_suffix": "/7",
+        "stat_3_suffix_ar": "/٧",
+        "stat_3_decimals": "0",
+        "stat_3_label_en": "Instant access",
+        "stat_3_label_ar": "وصول فوري",
+        "stat_4_glyph": "<",
+        "stat_4_value": "2",
+        "stat_4_suffix": "",
+        "stat_4_decimals": "0",
+        "stat_4_label_en": "Languages included",
+        "stat_4_label_ar": "لغتان متاحتان"
+      },
+      "blocks": {
+        "amazon": {
+          "type": "product",
+          "settings": {
+            "product": "amazon-fba-blueprint",
+            "icon": "fa-brands fa-amazon",
+            "fallback_label": "Amazon FBA"
+          }
+        },
+        "ai": {
+          "type": "product",
+          "settings": {
+            "product": "online-income-system",
+            "icon": "fa-solid fa-robot",
+            "fallback_label": "AI Income"
+          }
+        },
+        "dropshipping": {
+          "type": "product",
+          "settings": {
+            "product": "dropshipping-mastery-system",
+            "icon": "fa-solid fa-truck-fast",
+            "fallback_label": "Dropshipping"
+          }
+        }
+      },
+      "block_order": [
+        "amazon",
+        "ai",
+        "dropshipping"
+      ]
+    },
+    "pricing": {
+      "type": "cro-pricing-block",
+      "settings": {
+        "eyebrow_en": "Choose your path",
+        "eyebrow_ar": "اختر مسارك",
+        "heading_en": "Three clear ways to begin.",
+        "heading_ar": "ثلاثة مسارات واضحة للبداية.",
+        "intro_en": "Choose the system that matches your current goal. Each one is practical, focused, and available instantly.",
+        "intro_ar": "اختر النظام الأنسب لهدفك الحالي. كل نظام عملي ومركز ومتاح فوراً."
+      },
+      "blocks": {}
+    },
+    "faq": {
+      "type": "conversion-faq",
+      "settings": {
+        "eyebrow_en": "Questions, answered",
+        "eyebrow_ar": "إجابات واضحة",
+        "heading_en": "Everything to know before you begin.",
+        "heading_ar": "كل ما تحتاج معرفته قبل البداية.",
+        "intro_en": "Clear answers about access, languages, refunds, and realistic expectations.",
+        "intro_ar": "إجابات واضحة عن الوصول واللغات والاسترداد والتوقعات الواقعية."
+      },
+      "blocks": {}
+    },
+    "bundle": {
+      "type": "cro-final-cta",
+      "settings": {
+        "amazon_product": "amazon-fba-blueprint",
+        "ai_product": "online-income-system",
+        "dropshipping_product": "dropshipping-mastery-system",
+        "bundle_discount_percent": 20,
+        "discount_code": "BUNDLE20",
+        "badge_en": "Best Value",
+        "badge_ar": "الأفضل قيمة",
+        "eyebrow_en": "Complete bundle",
+        "eyebrow_ar": "الباقة الكاملة",
+        "heading_en": "All three systems. One price.",
+        "heading_ar": "الأنظمة الثلاثة. بسعر واحد.",
+        "button_en": "Get the bundle",
+        "button_ar": "احصل على الباقة",
+        "reassurance_en": "Discount applied automatically · 30-day money-back",
+        "reassurance_ar": "الخصم يطبق تلقائياً · ضمان استرداد 30 يوم"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "pricing",
+    "faq",
+    "bundle"
+  ]
+}
