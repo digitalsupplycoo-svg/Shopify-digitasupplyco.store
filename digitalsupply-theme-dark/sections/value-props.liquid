@@ -1,0 +1,130 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+
+  assign heading = section.settings.heading_en
+  assign text = section.settings.text_en
+  if is_ar
+    assign heading = section.settings.heading_ar | default: heading
+    assign text = section.settings.text_ar | default: text
+  endif
+%}
+
+<section class="inside-section value-section">
+  <div class="section-heading">
+    <h2>{{ heading }}</h2>
+    {% if text != blank %}<p>{{ text }}</p>{% endif %}
+  </div>
+
+  <div class="value-grid">
+    {% for block in section.blocks %}
+      {% liquid
+        assign title = block.settings.title_en
+        assign body = block.settings.text_en
+        if is_ar
+          assign title = block.settings.title_ar | default: title
+          assign body = block.settings.text_ar | default: body
+        endif
+      %}
+      <article class="value-card" {{ block.shopify_attributes }}>
+        <span>{{ block.settings.badge }}</span>
+        <h3>{{ title }}</h3>
+        <p>{{ body }}</p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Value propositions",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_en",
+      "label": "Heading - English",
+      "default": "Why choose DigitalSupply Co"
+    },
+    {
+      "type": "text",
+      "id": "heading_ar",
+      "label": "Heading - Arabic",
+      "default": "لماذا تختار DigitalSupply Co؟"
+    },
+    {
+      "type": "textarea",
+      "id": "text_en",
+      "label": "Text - English",
+      "default": "A focused store for practical digital systems: clear steps, instant delivery, bilingual support, and a safer buying experience."
+    },
+    {
+      "type": "textarea",
+      "id": "text_ar",
+      "label": "Text - Arabic",
+      "default": "متجر متخصص في أنظمة رقمية عملية: خطوات واضحة، تحميل فوري، دعم عربي/إنجليزي، وتجربة شراء موثوقة."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value card",
+      "settings": [
+        { "type": "text", "id": "badge", "label": "Badge", "default": "01" },
+        { "type": "text", "id": "title_en", "label": "Title - English", "default": "Instant digital access" },
+        { "type": "textarea", "id": "text_en", "label": "Text - English", "default": "Your files are delivered digitally after checkout, so customers can start learning immediately." },
+        { "type": "text", "id": "title_ar", "label": "Title - Arabic", "default": "وصول رقمي فوري" },
+        { "type": "textarea", "id": "text_ar", "label": "Text - Arabic", "default": "يتم تسليم الملفات رقمياً بعد الدفع مباشرة، حتى يبدأ العميل في التعلم بدون انتظار." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Value propositions",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "badge": "01",
+            "title_en": "Instant digital access",
+            "text_en": "Receive the product digitally after checkout and start using the material right away.",
+            "title_ar": "تحميل فوري بعد الشراء",
+            "text_ar": "استلم المنتج رقمياً بعد إتمام الدفع وابدأ استخدام المحتوى مباشرة."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "badge": "02",
+            "title_en": "Built for action",
+            "text_en": "Every product is structured around checklists, examples, and practical next steps.",
+            "title_ar": "مصمم للتنفيذ",
+            "text_ar": "كل منتج منظم حول قوائم عملية، أمثلة، وخطوات واضحة قابلة للتطبيق."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "badge": "03",
+            "title_en": "30-day guarantee",
+            "text_en": "A clear refund window gives customers confidence before buying.",
+            "title_ar": "ضمان 30 يوماً",
+            "text_ar": "فترة استرداد واضحة تمنح العميل ثقة أكبر قبل الشراء."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "badge": "04",
+            "title_en": "Arabic and English",
+            "text_en": "The store supports English LTR and Arabic RTL layouts with clean bilingual copy.",
+            "title_ar": "عربي وإنجليزي",
+            "text_ar": "المتجر يدعم الإنجليزية واللغة العربية باتجاه RTL وكتابة واضحة ومريحة."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

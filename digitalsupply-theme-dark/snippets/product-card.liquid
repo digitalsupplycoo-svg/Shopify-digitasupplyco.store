@@ -1,0 +1,260 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+
+  assign selected_product = product_card_product
+  if selected_product == blank and fallback_handle != blank
+    assign selected_product = all_products[fallback_handle]
+  endif
+  if selected_product == blank and fallback_handle != blank
+    assign fallback_handle_tm = fallback_handle | append: '™'
+    assign selected_product = all_products[fallback_handle_tm]
+  endif
+  if selected_product == blank
+    case fallback_cover
+      when 'dropshipping'
+        assign selected_product = all_products['dropshipping-mastery-system']
+        if selected_product == blank
+          assign selected_product = all_products['dropshipping-mastery-system™']
+        endif
+      when 'amazon'
+        assign selected_product = all_products['amazon-fba-blueprint']
+        if selected_product == blank
+          assign selected_product = all_products['amazon-fba-blueprint™']
+        endif
+      when 'online'
+        assign selected_product = all_products['online-income-system']
+        if selected_product == blank
+          assign selected_product = all_products['online-income-system™']
+        endif
+    endcase
+  endif
+
+  assign original_price = blank
+  assign current_price = blank
+  assign cta_text = blank
+  assign urgency_text = blank
+  assign is_popular = false
+  assign fallback_title = fallback_title_en
+  assign fallback_text = fallback_text_en
+  if is_ar
+    assign fallback_title = fallback_title_ar | default: fallback_title
+    assign fallback_text = fallback_text_ar | default: fallback_text
+  endif
+
+  assign card_title = fallback_title
+  assign card_text = fallback_text
+  assign fallback_url_handle = fallback_handle | handleize
+  assign card_url = '/products/' | append: fallback_url_handle
+  assign card_price = fallback_price
+  assign cover_asset = 'cover-digital-product-generic.svg'
+
+  case fallback_cover
+    when 'dropshipping'
+      assign cover_asset = 'cover-dropshipping-mastery-system.svg'
+    when 'amazon'
+      assign cover_asset = 'cover-amazon-fba-blueprint.svg'
+    when 'online'
+      assign cover_asset = 'cover-online-income-system.svg'
+  endcase
+
+  if selected_product != blank
+    assign card_title = selected_product.title
+    assign card_url = selected_product.url
+    assign card_price = selected_product.price | money
+    assign card_media = selected_product.media.first
+    if selected_product.media.size > 1
+      for media in selected_product.media
+        assign media_alt_down = media.alt | downcase
+        assign media_src_down = media.preview_image | image_url: width: 900 | downcase
+        if is_ar
+          if media_alt_down contains 'arabic' or media_alt_down contains 'عربي' or media_src_down contains 'arabic' or media_src_down contains '_ar' or media_src_down contains '-ar'
+            assign card_media = media
+            break
+          endif
+        else
+          if media_alt_down contains 'english' or media_alt_down contains 'انجليزي' or media_src_down contains 'english' or media_src_down contains '_en' or media_src_down contains '-en'
+            assign card_media = media
+            break
+          endif
+        endif
+      endfor
+    endif
+    if card_media != blank
+      assign card_image = card_media.preview_image
+    elsif selected_product.featured_image != blank
+      assign card_image = selected_product.featured_image
+    endif
+  endif
+
+  if is_ar
+    if card_image_ar != blank
+      assign card_image = card_image_ar
+    endif
+  elsif card_image_en != blank
+    assign card_image = card_image_en
+  endif
+
+  assign normalized_handle = fallback_url_handle | remove: '™'
+  if selected_product != blank
+    assign normalized_handle = selected_product.handle | remove: '™'
+  endif
+
+  case normalized_handle
+    when 'dropshipping-mastery-system'
+      if is_ar
+        assign card_title = 'دروبشيبينغ — ابدأ متجر بدون مخزون'
+        assign card_text = 'تعلم كيف تختار منتج، تجهز متجر، وتبدأ اختبار أول فكرة بيع أونلاين بدون الحاجة لشراء مخزون من البداية.'
+        assign cta_text = 'ابدأ الدروبشيبينغ ←'
+        assign urgency_text = '📥 تحميل فوري · محدث 2026'
+      else
+        assign card_title = 'Dropshipping — Start an Online Store Without Inventory'
+        assign card_text = 'Learn how to choose a product, set up a store, and test your first online selling idea without buying inventory upfront.'
+        assign cta_text = 'Start Dropshipping →'
+        assign urgency_text = '📥 Instant download · Updated 2026'
+      endif
+    when 'amazon-fba-blueprint'
+      if is_ar
+        assign card_title = 'Amazon FBA — ابنِ مشروع بيع على أمازون'
+        assign card_text = 'دليل عملي يساعدك تفهم كيف يعمل Amazon FBA، كيف تبحث عن منتجات، وكيف تبدأ التفكير كبائع على أكبر منصات التجارة الإلكترونية.'
+        assign cta_text = 'ابدأ FBA ←'
+        assign urgency_text = '📥 تحميل فوري · محدث 2026'
+      else
+        assign card_title = 'Amazon FBA — Build a Selling Business on Amazon'
+        assign card_text = 'A practical guide to help you understand how Amazon FBA works, how to research products, and how to start thinking like an online seller.'
+        assign cta_text = 'Start FBA →'
+        assign urgency_text = '📥 Instant download · Updated 2026'
+      endif
+    when 'online-income-system'
+      assign is_popular = true
+      if is_ar
+        assign card_title = 'AI Income System — استخدم الذكاء الاصطناعي لبدء دخل رقمي'
+        assign card_text = 'تعلم كيف تستخدم أدوات الذكاء الاصطناعي لاكتشاف أفكار دخل، إنشاء محتوى، تجهيز خدمات رقمية، والبدء من هاتفك أو لابتوبك.'
+        assign cta_text = 'ابدأ بالذكاء الاصطناعي ←'
+        assign urgency_text = '📥 تحميل فوري · محدث 2026'
+      else
+        assign card_title = 'AI Income System — Use AI to Start a Digital Income Path'
+        assign card_text = 'Learn how to use AI tools to discover income ideas, create content, build digital services, and start from your phone or laptop.'
+        assign cta_text = 'Start with AI →'
+        assign urgency_text = '📥 Instant download · Updated 2026'
+      endif
+  endcase
+%}
+
+<article class="inside-card" data-product-card="{{ normalized_handle }}">
+  {% if is_popular %}
+    <span class="inside-card__popular">{% if is_ar %}الأكثر اختياراً{% else %}MOST POPULAR{% endif %}</span>
+  {% endif %}
+  <a class="inside-card__media" href="{{ card_url }}" aria-label="{{ card_title | escape }}">
+    {% if card_image != blank %}
+      {{ card_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: card_title }}
+    {% else %}
+      <img src="{{ cover_asset | asset_url }}" width="1536" height="1024" loading="lazy" alt="{{ card_title | escape }}">
+    {% endif %}
+    {% if card_image == blank %}
+      <span class="inside-card__fallback">{{ fallback_badge }}</span>
+    {% endif %}
+  </a>
+  <h3><a href="{{ card_url }}">{{ card_title }}</a></h3>
+  {% if original_price != blank or current_price != blank or card_price != blank %}
+    <div class="inside-card__price">
+      <strong>{{ current_price | default: card_price }}</strong>
+    </div>
+  {% elsif card_price != blank %}
+    <p class="eyebrow">{{ card_price }}</p>
+  {% endif %}
+  {% if urgency_text != blank %}
+    <p class="inside-card__urgency">{{ urgency_text }}</p>
+  {% endif %}
+  {% if card_text != blank %}
+    <p>{{ card_text }}</p>
+  {% endif %}
+  <a class="inside-card__cta" href="{{ card_url }}">{% if cta_text != blank %}{{ cta_text }}{% else %}{{ 'products.product.card_cta' | t }}{% endif %}</a>
+</article>
+
+{% stylesheet %}
+  .inside-card {
+    position: relative;
+  }
+
+  .inside-card__popular {
+    position: absolute;
+    top: 0.85rem;
+    inset-inline-end: 0.85rem;
+    z-index: 3;
+    padding: 0.42rem 0.62rem;
+    color: #fff;
+    background: #E8A020;
+    border-radius: 4px;
+    font-family: var(--heading);
+    font-size: 0.78rem;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .inside-card__price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+  }
+
+  .inside-card__compare {
+    color: #52657D;
+    font-family: var(--body);
+    font-size: 1rem;
+    text-decoration: line-through;
+  }
+
+  .inside-card__price strong {
+    color: var(--color-ink);
+    font-family: var(--heading);
+    font-size: clamp(1.65rem, 2.4vw, 2.25rem);
+    line-height: 1;
+  }
+
+  .inside-card__urgency {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .inside-card__cta {
+    width: max-content;
+    min-height: 44px;
+    padding: 0 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    background: var(--color-ink);
+    border-radius: 5px;
+    font-family: var(--heading);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: background 160ms ease, transform 160ms ease;
+  }
+
+  .inside-card__cta:hover {
+    background: var(--color-accent);
+    transform: translateY(-1px);
+  }
+
+  [dir="rtl"] .inside-card__cta {
+    font-family: "Cairo", Tahoma, Arial, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  @media (max-width: 760px) {
+    .inside-card__cta {
+      width: 100%;
+      min-height: 52px;
+      font-size: 1rem;
+    }
+  }
+{% endstylesheet %}

@@ -1,0 +1,18 @@
+{% liquid
+  assign cover_asset = 'cover-digital-product-generic.svg'
+  assign product_handle = product.handle | remove: '™'
+  if product_handle == 'dropshipping-mastery-system'
+    assign cover_asset = 'cover-dropshipping-mastery-system.svg'
+  elsif product_handle == 'amazon-fba-blueprint'
+    assign cover_asset = 'cover-amazon-fba-blueprint.svg'
+  elsif product_handle == 'online-income-system'
+    assign cover_asset = 'cover-online-income-system.svg'
+  elsif fallback_cover == 'dropshipping'
+    assign cover_asset = 'cover-dropshipping-mastery-system.svg'
+  elsif fallback_cover == 'amazon'
+    assign cover_asset = 'cover-amazon-fba-blueprint.svg'
+  elsif fallback_cover == 'online'
+    assign cover_asset = 'cover-online-income-system.svg'
+  endif
+%}
+{{ cover_asset }}

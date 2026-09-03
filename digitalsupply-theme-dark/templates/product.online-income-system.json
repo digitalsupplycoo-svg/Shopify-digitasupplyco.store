@@ -1,0 +1,109 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-digital-product",
+      "blocks": {
+        "included": {
+          "type": "included_item",
+          "settings": {
+            "title_en": "AI digital income guide",
+            "text_en": "A practical guide for idea prompts, content outlines, simple offers, and workflows.",
+            "title_ar": "\u062f\u0644\u064a\u0644 \u0627\u0644\u062f\u062e\u0644 \u0627\u0644\u0631\u0642\u0645\u064a \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a",
+            "text_ar": "\u062f\u0644\u064a\u0644 \u0639\u0645\u0644\u064a \u0644\u0644\u0623\u0641\u0643\u0627\u0631\u060c \u0645\u062e\u0637\u0637\u0627\u062a \u0627\u0644\u0645\u062d\u062a\u0648\u0649\u060c \u0627\u0644\u0639\u0631\u0648\u0636 \u0627\u0644\u0628\u0633\u064a\u0637\u0629\u060c \u0648\u062e\u0637\u0648\u0627\u062a \u0627\u0644\u0639\u0645\u0644."
+          }
+        },
+        "audience": {
+          "type": "audience_item",
+          "settings": {
+            "title_en": "For beginners and creators",
+            "text_en": "Made for anyone who wants to use AI tools without a technical background.",
+            "title_ar": "\u0644\u0644\u0645\u0628\u062a\u062f\u0626\u064a\u0646 \u0648\u0635\u0646\u0627\u0639 \u0627\u0644\u0645\u062d\u062a\u0648\u0649",
+            "text_ar": "\u0645\u0646\u0627\u0633\u0628 \u0644\u0645\u0646 \u064a\u0631\u064a\u062f \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0623\u062f\u0648\u0627\u062a AI \u0628\u062f\u0648\u0646 \u062e\u0644\u0641\u064a\u0629 \u062a\u0642\u0646\u064a\u0629."
+          }
+        },
+        "benefit": {
+          "type": "benefit_item",
+          "settings": {
+            "title_en": "Find ideas faster",
+            "text_en": "Use AI to organize income paths, content ideas, and simple digital services.",
+            "title_ar": "\u0627\u0643\u062a\u0634\u0641 \u0627\u0644\u0623\u0641\u0643\u0627\u0631 \u0628\u0633\u0631\u0639\u0629 \u0623\u0643\u0628\u0631",
+            "text_ar": "\u0627\u0633\u062a\u062e\u062f\u0645 AI \u0644\u062a\u0631\u062a\u064a\u0628 \u0645\u0633\u0627\u0631\u0627\u062a \u0627\u0644\u062f\u062e\u0644\u060c \u0623\u0641\u0643\u0627\u0631 \u0627\u0644\u0645\u062d\u062a\u0648\u0649\u060c \u0648\u0627\u0644\u062e\u062f\u0645\u0627\u062a \u0627\u0644\u0631\u0642\u0645\u064a\u0629."
+          }
+        },
+        "process": {
+          "type": "process_step",
+          "settings": {
+            "title_en": "Download and build the first version",
+            "text_en": "Get instant access and use the templates to create your first offer or workflow.",
+            "title_ar": "\u062d\u0645\u0651\u0644 \u0648\u0627\u0628\u0646 \u0627\u0644\u0646\u0633\u062e\u0629 \u0627\u0644\u0623\u0648\u0644\u0649",
+            "text_ar": "\u0627\u062d\u0635\u0644 \u0639\u0644\u0649 \u0627\u0644\u0648\u0635\u0648\u0644 \u0648\u0627\u0633\u062a\u062e\u062f\u0645 \u0627\u0644\u0642\u0648\u0627\u0644\u0628 \u0644\u062a\u062c\u0647\u064a\u0632 \u0623\u0648\u0644 \u0639\u0631\u0636 \u0623\u0648 \u062e\u0637\u0629 \u0639\u0645\u0644."
+          }
+        }
+      },
+      "block_order": [
+        "included",
+        "audience",
+        "benefit",
+        "process"
+      ],
+      "settings": {
+        "fallback_cover": "online"
+      }
+    },
+    "trust": {
+      "type": "trust-strip",
+      "settings": {}
+    },
+    "bundle": {
+      "type": "cro-final-cta",
+      "settings": {
+        "amazon_product": "amazon-fba-blueprint",
+        "ai_product": "online-income-system",
+        "dropshipping_product": "dropshipping-mastery-system",
+        "bundle_discount_percent": 20,
+        "discount_code": "BUNDLE20",
+        "heading_en": "Add the other two systems and save 20%.",
+        "heading_ar": "\u0623\u0636\u0641 \u0627\u0644\u0646\u0638\u0627\u0645\u064a\u0646 \u0627\u0644\u0622\u062e\u0631\u064a\u0646 \u0648\u0648\u0641\u0631 20\u066a.",
+        "reassurance_en": "Active BUNDLE20 offer \u00b7 30-day money-back",
+        "reassurance_ar": "\u0639\u0631\u0636 BUNDLE20 \u0641\u0639\u0627\u0644 \u00b7 \u0636\u0645\u0627\u0646 \u0627\u0633\u062a\u0631\u062f\u0627\u062f 30 \u064a\u0648\u0645"
+      }
+    },
+    "related": {
+      "type": "featured-digital-products",
+      "blocks": {
+        "amazon": {
+          "type": "product_card",
+          "settings": {
+            "fallback_handle": "amazon-fba-blueprint",
+            "cover": "amazon",
+            "badge": "FBA"
+          }
+        },
+        "dropshipping": {
+          "type": "product_card",
+          "settings": {
+            "fallback_handle": "dropshipping-mastery-system",
+            "cover": "dropshipping",
+            "badge": "DS"
+          }
+        }
+      },
+      "block_order": [
+        "amazon",
+        "dropshipping"
+      ],
+      "settings": {
+        "heading_en": "Continue with another practical system",
+        "heading_ar": "\u0648\u0627\u0635\u0644 \u0628\u0646\u0638\u0627\u0645 \u0639\u0645\u0644\u064a \u0622\u062e\u0631",
+        "text_en": "Compare the other DigitalSupply Co guides.",
+        "text_ar": "\u0642\u0627\u0631\u0646 \u0623\u062f\u0644\u0629 DigitalSupply Co \u0627\u0644\u0623\u062e\u0631\u0649."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "trust",
+    "bundle",
+    "related"
+  ]
+}

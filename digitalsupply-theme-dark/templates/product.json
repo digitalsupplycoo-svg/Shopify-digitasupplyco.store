@@ -1,0 +1,222 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-digital-product",
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust-strip",
+      "settings": {}
+    },
+    "related": {
+      "type": "featured-digital-products",
+      "blocks": {
+        "dropshipping": {
+          "type": "product_card",
+          "settings": {
+            "fallback_handle": "dropshipping-mastery-system",
+            "cover": "dropshipping",
+            "badge": "DS",
+            "title_en": "Dropshipping \u2014 Start an Online Store Without Inventory",
+            "title_ar": "\u062f\u0631\u0648\u0628\u0634\u064a\u0628\u064a\u0646\u063a \u2014 \u0627\u0628\u062f\u0623 \u0645\u062a\u062c\u0631 \u0628\u062f\u0648\u0646 \u0645\u062e\u0632\u0648\u0646",
+            "text_en": "Learn how to choose a product, set up a store, and test your first online selling idea without buying inventory upfront.",
+            "text_ar": "\u062a\u0639\u0644\u0645 \u0643\u064a\u0641 \u062a\u062e\u062a\u0627\u0631 \u0645\u0646\u062a\u062c\u060c \u062a\u062c\u0647\u0632 \u0645\u062a\u062c\u0631\u060c \u0648\u062a\u0628\u062f\u0623 \u0627\u062e\u062a\u0628\u0627\u0631 \u0623\u0648\u0644 \u0641\u0643\u0631\u0629 \u0628\u064a\u0639 \u0623\u0648\u0646\u0644\u0627\u064a\u0646 \u0628\u062f\u0648\u0646 \u0634\u0631\u0627\u0621 \u0645\u062e\u0632\u0648\u0646 \u0645\u0646 \u0627\u0644\u0628\u062f\u0627\u064a\u0629.",
+            "price": ""
+          }
+        },
+        "amazon": {
+          "type": "product_card",
+          "settings": {
+            "fallback_handle": "amazon-fba-blueprint",
+            "cover": "amazon",
+            "badge": "FBA",
+            "title_en": "Amazon FBA \u2014 Build a Selling Business on Amazon",
+            "title_ar": "Amazon FBA \u2014 \u0627\u0628\u0646\u0650 \u0645\u0634\u0631\u0648\u0639 \u0628\u064a\u0639 \u0639\u0644\u0649 \u0623\u0645\u0627\u0632\u0648\u0646",
+            "text_en": "A practical guide to understand how Amazon FBA works, research products, and start thinking like an online seller.",
+            "text_ar": "\u062f\u0644\u064a\u0644 \u0639\u0645\u0644\u064a \u0644\u0641\u0647\u0645 Amazon FBA\u060c \u0628\u062d\u062b \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a\u060c \u0648\u0627\u0644\u0628\u062f\u0621 \u0628\u0627\u0644\u062a\u0641\u0643\u064a\u0631 \u0643\u0628\u0627\u0626\u0639 \u0623\u0648\u0646\u0644\u0627\u064a\u0646.",
+            "price": ""
+          }
+        },
+        "online": {
+          "type": "product_card",
+          "settings": {
+            "fallback_handle": "online-income-system",
+            "cover": "online",
+            "badge": "AI",
+            "title_en": "AI Income System \u2014 Use AI to Start a Digital Income Path",
+            "title_ar": "AI Income System \u2014 \u0627\u0633\u062a\u062e\u062f\u0645 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0644\u0628\u062f\u0621 \u062f\u062e\u0644 \u0631\u0642\u0645\u064a",
+            "text_en": "Use AI tools to discover income ideas, create content, build digital services, and start from your phone or laptop.",
+            "text_ar": "\u0627\u0633\u062a\u062e\u062f\u0645 \u0623\u062f\u0648\u0627\u062a \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0644\u0627\u0643\u062a\u0634\u0627\u0641 \u0623\u0641\u0643\u0627\u0631 \u062f\u062e\u0644\u060c \u0625\u0646\u0634\u0627\u0621 \u0645\u062d\u062a\u0648\u0649\u060c \u062a\u062c\u0647\u064a\u0632 \u062e\u062f\u0645\u0627\u062a \u0631\u0642\u0645\u064a\u0629\u060c \u0648\u0627\u0644\u0628\u062f\u0621 \u0645\u0646 \u0647\u0627\u062a\u0641\u0643 \u0623\u0648 \u0644\u0627\u0628\u062a\u0648\u0628\u0643.",
+            "price": ""
+          }
+        }
+      },
+      "block_order": [
+        "dropshipping",
+        "amazon",
+        "online"
+      ],
+      "settings": {}
+    },
+    "action_plan": {
+      "type": "value-props",
+      "blocks": {
+        "day_1": {
+          "type": "value",
+          "settings": {
+            "badge": "Step 1",
+            "title_en": "Choose your path",
+            "text_en": "Pick the package that fits your goal and understand the first clear steps.",
+            "title_ar": "\u0627\u062e\u062a\u0631 \u0627\u0644\u0645\u0633\u0627\u0631",
+            "text_ar": "\u0627\u062e\u062a\u0631 \u0627\u0644\u0628\u0627\u0642\u0629 \u0627\u0644\u0645\u0646\u0627\u0633\u0628\u0629 \u0644\u0647\u062f\u0641\u0643 \u0648\u0627\u0641\u0647\u0645 \u0623\u0648\u0644 \u062e\u0637\u0648\u0627\u062a \u0648\u0627\u0636\u062d\u0629."
+          }
+        },
+        "day_2": {
+          "type": "value",
+          "settings": {
+            "badge": "Step 2",
+            "title_en": "Build the first version",
+            "text_en": "Use the checklists and templates to prepare your product idea, offer, content, or workflow.",
+            "title_ar": "\u0627\u0628\u0646\u0650 \u0627\u0644\u0646\u0633\u062e\u0629 \u0627\u0644\u0623\u0648\u0644\u0649",
+            "text_ar": "\u0627\u0633\u062a\u062e\u062f\u0645 \u0627\u0644\u0642\u0648\u0627\u0626\u0645 \u0648\u0627\u0644\u0642\u0648\u0627\u0644\u0628 \u0644\u062a\u062c\u0647\u064a\u0632 \u0641\u0643\u0631\u0629 \u0627\u0644\u0645\u0646\u062a\u062c\u060c \u0627\u0644\u0639\u0631\u0636\u060c \u0627\u0644\u0645\u062d\u062a\u0648\u0649\u060c \u0623\u0648 \u062e\u0637\u0648\u0627\u062a \u0627\u0644\u0639\u0645\u0644."
+          }
+        },
+        "day_3": {
+          "type": "value",
+          "settings": {
+            "badge": "Step 3",
+            "title_en": "Test and improve",
+            "text_en": "Publish your first attempt, review real signals, and improve the next step.",
+            "title_ar": "\u0627\u062e\u062a\u0628\u0631 \u0648\u062d\u0633\u0651\u0646",
+            "text_ar": "\u0627\u0646\u0634\u0631 \u0623\u0648\u0644 \u0645\u062d\u0627\u0648\u0644\u0629\u060c \u0631\u0627\u0642\u0628 \u0627\u0644\u0645\u0624\u0634\u0631\u0627\u062a \u0627\u0644\u0648\u0627\u0642\u0639\u064a\u0629\u060c \u0648\u062d\u0633\u0651\u0646 \u0627\u0644\u062e\u0637\u0648\u0629 \u0627\u0644\u062a\u0627\u0644\u064a\u0629."
+          }
+        }
+      },
+      "block_order": [
+        "day_1",
+        "day_2",
+        "day_3"
+      ],
+      "settings": {
+        "heading_en": "Quick Start Action Plan",
+        "heading_ar": "\u062e\u0637\u0629 \u0628\u062f\u0627\u064a\u0629 \u0639\u0645\u0644\u064a\u0629",
+        "text_en": "A simple action path to help you choose a direction, reduce confusion, and take action today without promises of specific results.",
+        "text_ar": "\u0645\u0633\u0627\u0631 \u0639\u0645\u0644\u064a \u0628\u0633\u064a\u0637 \u064a\u0633\u0627\u0639\u062f\u0643 \u062a\u062e\u062a\u0627\u0631 \u0627\u0644\u0627\u062a\u062c\u0627\u0647 \u0627\u0644\u0645\u0646\u0627\u0633\u0628\u060c \u062a\u0642\u0644\u0644 \u0627\u0644\u062a\u0634\u062a\u062a\u060c \u0648\u062a\u0628\u062f\u0623 \u0627\u0644\u064a\u0648\u0645 \u0628\u062f\u0648\u0646 \u0648\u0639\u0648\u062f \u0628\u0646\u062a\u0627\u0626\u062c \u0645\u062d\u062f\u062f\u0629."
+      }
+    },
+    "value_framework": {
+      "type": "rich-text-band",
+      "settings": {
+        "eyebrow_en": "Practical value framework",
+        "eyebrow_ar": "\u0625\u0637\u0627\u0631 \u0642\u064a\u0645\u0629 \u0639\u0645\u0644\u064a",
+        "heading_en": "Do not just buy a file. Use it to take your next clear step.",
+        "heading_ar": "\u0644\u0627 \u062a\u0634\u062a\u0631\u064a \u0645\u0644\u0641\u0627\u064b \u0641\u0642\u0637. \u0627\u0633\u062a\u062e\u062f\u0645\u0647 \u0644\u062a\u0628\u062f\u0623 \u062e\u0637\u0648\u0629 \u0623\u0648\u0636\u062d.",
+        "text_en": "The goal is to use a clear system, apply the steps seriously, and turn the templates and guidance into practical decisions. Your progress depends on your effort, market, consistency, and execution.",
+        "text_ar": "\u0627\u0644\u0647\u062f\u0641 \u0623\u0646 \u062a\u0633\u062a\u062e\u062f\u0645 \u0646\u0638\u0627\u0645\u0627\u064b \u0648\u0627\u0636\u062d\u0627\u064b\u060c \u062a\u0637\u0628\u0642 \u0627\u0644\u062e\u0637\u0648\u0627\u062a \u0628\u062c\u062f\u064a\u0629\u060c \u0648\u062a\u062d\u0648\u0644 \u0627\u0644\u0642\u0648\u0627\u0644\u0628 \u0648\u0627\u0644\u0625\u0631\u0634\u0627\u062f \u0625\u0644\u0649 \u0642\u0631\u0627\u0631\u0627\u062a \u0639\u0645\u0644\u064a\u0629. \u062a\u0642\u062f\u0645\u0643 \u064a\u0639\u062a\u0645\u062f \u0639\u0644\u0649 \u062c\u0647\u062f\u0643\u060c \u0627\u0644\u0633\u0648\u0642\u060c \u0627\u0644\u0627\u0633\u062a\u0645\u0631\u0627\u0631\u064a\u0629\u060c \u0648\u0637\u0631\u064a\u0642\u0629 \u0627\u0644\u062a\u0646\u0641\u064a\u0630."
+      }
+    },
+    "faq": {
+      "type": "conversion-faq",
+      "blocks": {
+        "physical": {
+          "type": "question",
+          "settings": {
+            "question_en": "Is this a physical product?",
+            "answer_en": "No. These are digital products. After checkout, you receive digital access so you can start without shipping or waiting.",
+            "question_ar": "\u0647\u0644 \u0647\u0630\u0627 \u0645\u0646\u062a\u062c \u0645\u0627\u062f\u064a\u061f",
+            "answer_ar": "\u0644\u0627. \u0647\u0630\u0647 \u0645\u0646\u062a\u062c\u0627\u062a \u0631\u0642\u0645\u064a\u0629. \u0628\u0639\u062f \u0627\u0644\u062f\u0641\u0639 \u062a\u062d\u0635\u0644 \u0639\u0644\u0649 \u0648\u0635\u0648\u0644 \u0631\u0642\u0645\u064a \u062d\u062a\u0649 \u062a\u0628\u062f\u0623 \u0628\u062f\u0648\u0646 \u0634\u062d\u0646 \u0623\u0648 \u0627\u0646\u062a\u0638\u0627\u0631."
+          }
+        },
+        "phone": {
+          "type": "question",
+          "settings": {
+            "question_en": "Can I use it from my phone?",
+            "answer_en": "Yes. You can read, plan, and apply the steps from your phone or laptop. A laptop can help for longer work sessions, but you can start from your phone today.",
+            "question_ar": "\u0647\u0644 \u0623\u0642\u062f\u0631 \u0623\u0633\u062a\u062e\u062f\u0645\u0647 \u0645\u0646 \u0627\u0644\u062c\u0648\u0627\u0644\u061f",
+            "answer_ar": "\u0646\u0639\u0645. \u062a\u0642\u062f\u0631 \u062a\u0642\u0631\u0623 \u0648\u062a\u062e\u0637\u0637 \u0648\u062a\u0637\u0628\u0642 \u0627\u0644\u062e\u0637\u0648\u0627\u062a \u0645\u0646 \u0627\u0644\u062c\u0648\u0627\u0644 \u0623\u0648 \u0627\u0644\u0644\u0627\u0628\u062a\u0648\u0628. \u0627\u0644\u0644\u0627\u0628\u062a\u0648\u0628 \u064a\u0633\u0627\u0639\u062f \u0644\u0644\u062c\u0644\u0633\u0627\u062a \u0627\u0644\u0637\u0648\u064a\u0644\u0629\u060c \u0644\u0643\u0646 \u062a\u0642\u062f\u0631 \u062a\u0628\u062f\u0623 \u0645\u0646 \u062c\u0648\u0627\u0644\u0643 \u0627\u0644\u064a\u0648\u0645."
+          }
+        },
+        "experience": {
+          "type": "question",
+          "settings": {
+            "question_en": "Do I need experience?",
+            "answer_en": "No. The products are made for beginners who want a clear path instead of scattered information. You still need to apply the steps seriously.",
+            "question_ar": "\u0647\u0644 \u0623\u062d\u062a\u0627\u062c \u062e\u0628\u0631\u0629\u061f",
+            "answer_ar": "\u0644\u0627. \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u0645\u0635\u0645\u0645\u0629 \u0644\u0644\u0645\u0628\u062a\u062f\u0626\u064a\u0646 \u0627\u0644\u0630\u064a\u0646 \u064a\u0631\u064a\u062f\u0648\u0646 \u0645\u0633\u0627\u0631\u0627\u064b \u0648\u0627\u0636\u062d\u0627\u064b \u0628\u062f\u0644 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u0645\u062a\u0641\u0631\u0642\u0629. \u0644\u0643\u0646 \u062a\u062d\u062a\u0627\u062c \u062a\u0637\u0628\u0642 \u0627\u0644\u062e\u0637\u0648\u0627\u062a \u0628\u062c\u062f\u064a\u0629."
+          }
+        },
+        "access": {
+          "type": "question",
+          "settings": {
+            "question_en": "When will I get access?",
+            "answer_en": "Access is digital and available after checkout through the normal Shopify order flow. There is no physical shipping.",
+            "question_ar": "\u0645\u062a\u0649 \u0623\u062d\u0635\u0644 \u0639\u0644\u0649 \u0627\u0644\u0648\u0635\u0648\u0644\u061f",
+            "answer_ar": "\u0627\u0644\u0648\u0635\u0648\u0644 \u0631\u0642\u0645\u064a \u0648\u064a\u0643\u0648\u0646 \u0628\u0639\u062f \u0625\u062a\u0645\u0627\u0645 \u0627\u0644\u062f\u0641\u0639 \u0645\u0646 \u062e\u0644\u0627\u0644 \u0645\u0633\u0627\u0631 \u0627\u0644\u0637\u0644\u0628 \u0627\u0644\u0637\u0628\u064a\u0639\u064a \u0641\u064a Shopify. \u0644\u0627 \u064a\u0648\u062c\u062f \u0634\u062d\u0646 \u0645\u0627\u062f\u064a."
+          }
+        },
+        "guaranteed": {
+          "type": "question",
+          "settings": {
+            "question_en": "Does this promise a specific result?",
+            "answer_en": "No. These are practical digital products with steps, templates, and execution plans. Your progress depends on your effort, time, market, and implementation.",
+            "question_ar": "\u0647\u0644 \u064a\u0648\u062c\u062f \u0648\u0639\u062f \u0628\u0646\u062a\u064a\u062c\u0629 \u0645\u062d\u062f\u062f\u0629\u061f",
+            "answer_ar": "\u0644\u0627. \u0647\u0630\u0647 \u0645\u0646\u062a\u062c\u0627\u062a \u0631\u0642\u0645\u064a\u0629 \u062a\u0639\u0644\u064a\u0645\u064a\u0629 \u0648\u0639\u0645\u0644\u064a\u0629 \u062a\u0639\u0637\u064a\u0643 \u062e\u0637\u0648\u0627\u062a \u0648\u0642\u0648\u0627\u0644\u0628 \u0648\u062e\u0637\u0629 \u062a\u0646\u0641\u064a\u0630. \u062a\u0642\u062f\u0645\u0643 \u064a\u0639\u062a\u0645\u062f \u0639\u0644\u0649 \u062a\u0637\u0628\u064a\u0642\u0643\u060c \u0648\u0642\u062a\u0643\u060c \u0627\u0644\u0633\u0648\u0642\u060c \u0648\u0637\u0631\u064a\u0642\u0629 \u062a\u0646\u0641\u064a\u0630\u0643."
+          }
+        },
+        "fast": {
+          "type": "question",
+          "settings": {
+            "question_en": "How fast can I start?",
+            "answer_en": "You can start today. The quick start plan helps you move from confusion to action, but it does not promise a specific financial result in a specific number of days.",
+            "question_ar": "\u0642\u062f\u064a\u0634 \u0628\u0633\u0631\u0639\u0629 \u0623\u0642\u062f\u0631 \u0623\u0628\u062f\u0623\u061f",
+            "answer_ar": "\u062a\u0642\u062f\u0631 \u062a\u0628\u062f\u0623 \u0627\u0644\u064a\u0648\u0645. \u062e\u0637\u0629 \u0627\u0644\u0628\u062f\u0627\u064a\u0629 \u062a\u0633\u0627\u0639\u062f\u0643 \u062a\u0646\u062a\u0642\u0644 \u0645\u0646 \u0627\u0644\u062a\u0634\u062a\u062a \u0625\u0644\u0649 \u0627\u0644\u062a\u0646\u0641\u064a\u0630\u060c \u0644\u0643\u0646\u0647\u0627 \u0644\u0627 \u062a\u0639\u062f \u0628\u0646\u062a\u064a\u062c\u0629 \u0645\u0627\u0644\u064a\u0629 \u0645\u062d\u062f\u062f\u0629 \u062e\u0644\u0627\u0644 \u0639\u062f\u062f \u0623\u064a\u0627\u0645 \u0645\u062d\u062f\u062f."
+          }
+        },
+        "beginner": {
+          "type": "question",
+          "settings": {
+            "question_en": "What if I am a beginner?",
+            "answer_en": "Start with one system if you want a focused first step. Choose the full bundle if you want the complete path across dropshipping, Amazon FBA, and AI-powered online income.",
+            "question_ar": "\u0645\u0627\u0630\u0627 \u0644\u0648 \u0623\u0646\u0627 \u0645\u0628\u062a\u062f\u0626\u061f",
+            "answer_ar": "\u0627\u0628\u062f\u0623 \u0628\u0646\u0638\u0627\u0645 \u0648\u0627\u062d\u062f \u0625\u0630\u0627 \u062a\u0631\u064a\u062f \u062e\u0637\u0648\u0629 \u0645\u0631\u0643\u0632\u0629. \u0627\u062e\u062a\u0631 \u0627\u0644\u0628\u0627\u0642\u0629 \u0627\u0644\u0643\u0627\u0645\u0644\u0629 \u0625\u0630\u0627 \u062a\u0631\u064a\u062f \u0627\u0644\u0645\u0633\u0627\u0631 \u0627\u0644\u0623\u0648\u0633\u0639 \u0641\u064a \u0627\u0644\u062f\u0631\u0648\u0628\u0634\u064a\u0628\u064a\u0646\u063a\u060c Amazon FBA\u060c \u0648\u0627\u0644\u062f\u062e\u0644 \u0627\u0644\u0631\u0642\u0645\u064a \u0628\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a."
+          }
+        },
+        "worldwide": {
+          "type": "question",
+          "settings": {
+            "question_en": "Is this available worldwide?",
+            "answer_en": "Yes. The products are digital and can be purchased online from anywhere. Prices are shown in USD, with local currency display available through Shopify Markets when enabled.",
+            "question_ar": "\u0647\u0644 \u0627\u0644\u0645\u0646\u062a\u062c \u0645\u062a\u0627\u062d \u0639\u0627\u0644\u0645\u064a\u0627\u064b\u061f",
+            "answer_ar": "\u0646\u0639\u0645. \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u0631\u0642\u0645\u064a\u0629 \u0648\u064a\u0645\u0643\u0646 \u0634\u0631\u0627\u0624\u0647\u0627 \u0623\u0648\u0646\u0644\u0627\u064a\u0646 \u0645\u0646 \u0623\u064a \u0645\u0643\u0627\u0646 \u0641\u064a \u0627\u0644\u0639\u0627\u0644\u0645. \u0627\u0644\u0623\u0633\u0639\u0627\u0631 \u0645\u0639\u0631\u0648\u0636\u0629 \u0628\u0627\u0644\u062f\u0648\u0644\u0627\u0631\u060c \u0648\u064a\u0645\u0643\u0646 \u0639\u0631\u0636 \u0627\u0644\u0639\u0645\u0644\u0629 \u0627\u0644\u0645\u062d\u0644\u064a\u0629 \u0639\u0628\u0631 Shopify Markets \u0639\u0646\u062f \u062a\u0641\u0639\u064a\u0644\u0647\u0627."
+          }
+        }
+      },
+      "block_order": [
+        "physical",
+        "phone",
+        "experience",
+        "access",
+        "guaranteed",
+        "fast",
+        "beginner",
+        "worldwide"
+      ],
+      "settings": {
+        "eyebrow_en": "Before you buy",
+        "eyebrow_ar": "\u0642\u0628\u0644 \u0627\u0644\u0634\u0631\u0627\u0621",
+        "heading_en": "Straight answers before you start.",
+        "heading_ar": "\u0625\u062c\u0627\u0628\u0627\u062a \u0648\u0627\u0636\u062d\u0629 \u0642\u0628\u0644 \u0645\u0627 \u062a\u0628\u062f\u0623.",
+        "intro_en": "Clear answers before you start: what you get, how access works, and what depends on your execution.",
+        "intro_ar": "\u0625\u062c\u0627\u0628\u0627\u062a \u0648\u0627\u0636\u062d\u0629 \u0642\u0628\u0644 \u0627\u0644\u0628\u062f\u0627\u064a\u0629: \u0645\u0627\u0630\u0627 \u062a\u062d\u0635\u0644 \u0639\u0644\u064a\u0647\u060c \u0643\u064a\u0641 \u064a\u0639\u0645\u0644 \u0627\u0644\u0648\u0635\u0648\u0644\u060c \u0648\u0645\u0627 \u0627\u0644\u0630\u064a \u064a\u0639\u062a\u0645\u062f \u0639\u0644\u0649 \u062a\u0646\u0641\u064a\u0630\u0643."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "trust",
+    "action_plan",
+    "value_framework",
+    "faq",
+    "related"
+  ]
+}

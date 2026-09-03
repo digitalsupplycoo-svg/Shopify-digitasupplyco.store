@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Dropshipping Mastery System product cover</title>
+  <desc id="desc">Retro styled digital product cover in coral, teal, mustard, green, and black.</desc>
+  <rect width="1536" height="1024" fill="#f7f0df"/>
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="table" tableValues="0 .18"/></feComponentTransfer>
+  </filter>
+  <rect width="1536" height="1024" filter="url(#grain)" opacity=".45"/>
+  <g transform="translate(170 120)">
+    <rect x="125" y="0" width="895" height="760" rx="8" fill="#fff7e5" stroke="#1e1e1c" stroke-width="7"/>
+    <rect x="125" y="0" width="895" height="112" fill="#f25e45"/>
+    <path d="M820 0h200v260c-72-18-134-82-200-142z" fill="#0c6f73"/>
+    <rect x="125" y="640" width="895" height="120" fill="#0c6f73"/>
+    <rect x="0" y="180" width="260" height="430" rx="6" fill="#d59a23" stroke="#1e1e1c" stroke-width="5" transform="rotate(-9 130 395)"/>
+    <rect x="905" y="165" width="250" height="440" rx="6" fill="#5f793f" stroke="#1e1e1c" stroke-width="5" transform="rotate(9 1030 385)"/>
+    <g fill="#1e1e1c" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-weight="900">
+      <text x="215" y="270" font-size="122">DROPSHIPPING</text>
+      <text x="215" y="405" font-size="122">MASTERY</text>
+      <text x="215" y="540" font-size="122">SYSTEM</text>
+      <text x="910" y="545" font-size="92" fill="#f25e45">TM</text>
+    </g>
+    <g font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="44" fill="#fff7e5">
+      <rect x="20" y="450" width="215" height="70" fill="#1e1e1c"/>
+      <text x="48" y="500">SUPPLIERS</text>
+      <rect x="918" y="425" width="205" height="70" fill="#1e1e1c"/>
+      <text x="948" y="475">LAUNCH</text>
+    </g>
+    <circle cx="840" cy="346" r="11" fill="#0c6f73"/>
+    <circle cx="840" cy="391" r="11" fill="#f25e45"/>
+    <circle cx="840" cy="436" r="11" fill="#d59a23"/>
+    <circle cx="840" cy="481" r="11" fill="#1e1e1c"/>
+  </g>
+</svg>

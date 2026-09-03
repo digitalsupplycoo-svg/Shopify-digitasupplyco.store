@@ -1,0 +1,334 @@
+{% liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+  assign header_logo = section.settings.logo | default: settings.logo
+%}
+
+<header class="nav-shell" data-site-header>
+  <div class="nav-shell__inner">
+    <a class="nav-mark" href="{{ routes.root_url }}" aria-label="DigitalSupply Co">
+      {% if header_logo != blank %}
+        {{ header_logo | image_url: width: 140 | image_tag: loading: 'eager', widths: '52,92,140', sizes: '46px', width: 52, height: 52, alt: 'DigitalSupply Co' }}
+      {% else %}
+        <img src="{{ 'logo-digitalsupply-mono.png' | asset_url }}&width=140" width="52" height="52" alt="DigitalSupply Co" loading="eager">
+      {% endif %}
+    </a>
+
+    <nav class="nav-pill" aria-label="{{ 'accessibility.menu' | t }}">
+      <a href="{{ routes.all_products_collection_url }}" {% if template.name == 'collection' or template.name == 'product' %}aria-current="page"{% endif %}>{{ 'header.shop' | t }}</a>
+      <a href="{{ routes.root_url }}#bundle">{{ 'cro.bundle' | t }}</a>
+      <a href="{{ routes.root_url }}#faq">{{ 'cro.faq' | t }}</a>
+      <a href="{{ routes.root_url }}pages/contact" {% if template.name == 'page.contact' %}aria-current="page"{% endif %}>{% if is_ar %}تواصل{% else %}Contact{% endif %}</a>
+    </nav>
+
+    <div class="nav-actions">
+      {% if section.settings.show_language_selector and localization.available_languages.size > 1 %}
+        {% form 'localization', class: 'nav-language' %}
+          <label class="sr-only" for="HeaderLanguage">{{ 'accessibility.language' | t }}</label>
+          <select id="HeaderLanguage" name="locale_code" data-locale-selector>
+            {% for language in localization.available_languages %}
+              <option value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>{{ language.endonym_name | capitalize }}</option>
+            {% endfor %}
+          </select>
+        {% endform %}
+      {% endif %}
+
+      <a class="nav-cart" href="{{ routes.cart_url }}" aria-label="{{ 'accessibility.cart' | t }}">
+        <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+        <span class="nav-cart__count" {% if cart.item_count == 0 %}data-empty{% endif %}>{{ cart.item_count }}</span>
+      </a>
+
+      <button
+        class="nav-burger"
+        type="button"
+        aria-expanded="false"
+        aria-controls="HeaderMobileMenu"
+        data-header-menu-toggle
+      >
+        <span class="sr-only">{{ 'accessibility.menu' | t }}</span>
+        <span class="nav-burger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nav-overlay" data-header-overlay hidden></div>
+
+  <div class="nav-sheet" id="HeaderMobileMenu" data-header-navigation hidden>
+    <a href="{{ routes.all_products_collection_url }}" style="--i: 0">{{ 'header.shop' | t }}</a>
+    <a href="{{ routes.root_url }}#bundle" style="--i: 1">{{ 'cro.bundle' | t }}</a>
+    <a href="{{ routes.root_url }}#faq" style="--i: 2">{{ 'cro.faq' | t }}</a>
+    <a href="{{ routes.root_url }}pages/contact" style="--i: 3">{% if is_ar %}تواصل معنا{% else %}Contact{% endif %}</a>
+
+    {% if section.settings.show_language_selector and localization.available_languages.size > 1 %}
+      {% form 'localization', class: 'nav-sheet__language' %}
+        <label class="sr-only" for="SheetLanguage">{{ 'accessibility.language' | t }}</label>
+        <select id="SheetLanguage" name="locale_code" data-locale-selector>
+          {% for language in localization.available_languages %}
+            <option value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>{{ language.endonym_name | capitalize }}</option>
+          {% endfor %}
+        </select>
+      {% endform %}
+    {% endif %}
+
+    <a class="nav-sheet__cta" href="{{ routes.root_url }}#bundle" style="--i: 4">{{ 'cro.bundle_cta' | t }}</a>
+  </div>
+</header>
+
+{% stylesheet %}
+  .nav-shell {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 100;
+    padding-block: clamp(10px, 1.6vh, 16px);
+    animation: navSlideDown .7s var(--ease-out) both;
+    transition: background .3s ease, backdrop-filter .3s ease, border-color .3s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  /* Transparent over the hero video, then a dark glass bar once scrolled. */
+  .nav-shell.is-stuck {
+    background: rgba(0, 0, 0, .72);
+    border-bottom-color: var(--line);
+    backdrop-filter: saturate(160%) blur(18px);
+  }
+
+  @keyframes navSlideDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Must out-stack the overlay and sheet below, which live in this same stacking
+     context — otherwise the blur washes over the logo and burger. */
+  .nav-shell__inner {
+    width: min(var(--content-width), calc(100% - 48px));
+    position: relative;
+    z-index: 96;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(14px, 2.8vw, 28px);
+  }
+
+  /* Circular brand mark: page-coloured plate, white monogram. */
+  .nav-mark {
+    width: clamp(40px, 4.4vw, 46px);
+    height: clamp(40px, 4.4vw, 46px);
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: var(--bg);
+    border-radius: 50%;
+    transition: transform .25s var(--ease-out);
+  }
+
+  .nav-mark:hover { transform: scale(1.04); }
+
+  /* The asset is cropped tight to the monogram (no plate), so it is scaled
+     smaller than a full-bleed logo would be to keep the optical weight right. */
+  .nav-mark img { width: 62%; height: 62%; object-fit: contain; }
+
+  /* White nav pill */
+  .nav-pill {
+    height: clamp(44px, 5.2vw, 48px);
+    max-width: 460px;
+    flex: 1;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(4px, 1vw, 10px);
+    background: #fff;
+    border-radius: var(--pill-radius);
+    box-shadow: var(--nav-shadow);
+  }
+
+  .nav-pill a {
+    padding: 8px 10px 12px;
+    position: relative;
+    color: var(--nav-text);
+    font-size: clamp(13px, 1.4vw, 15px);
+    font-weight: 500;
+    letter-spacing: -.01em;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: .5;
+    transition: opacity .2s ease;
+  }
+
+  .nav-pill a:hover { opacity: .75; }
+  .nav-pill a[aria-current="page"] { opacity: 1; }
+
+  /* Three-dot active indicator */
+  .nav-pill a[aria-current="page"]::after {
+    content: "";
+    width: 3px;
+    height: 3px;
+    position: absolute;
+    inset-block-end: 5px;
+    inset-inline-start: 50%;
+    background: #000;
+    border-radius: 50%;
+    box-shadow: -5px 0 0 #000, 5px 0 0 #000;
+  }
+
+  .nav-actions { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; }
+
+  .nav-language select {
+    min-height: 40px;
+    padding-inline: 10px;
+    color: var(--sign-in-text);
+    background: var(--pill-dark);
+    border: 0;
+    border-radius: var(--pill-radius);
+    box-shadow: var(--nav-shadow);
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .nav-cart {
+    min-height: clamp(40px, 4.4vw, 46px);
+    padding-inline: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--sign-in-text);
+    background: var(--pill-dark);
+    border-radius: var(--pill-radius);
+    box-shadow: var(--nav-shadow);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background .2s ease, color .2s ease, transform .2s ease;
+  }
+
+  .nav-cart:hover { color: #fff; background: var(--pill-dark-hover); transform: translateY(-1px); }
+  .nav-cart__count { font-variant-numeric: tabular-nums; }
+  .nav-cart__count[data-empty] { opacity: .5; }
+
+  .nav-burger { display: none; }
+  .nav-overlay { display: none; }
+
+  @media (max-width: 900px) {
+    .nav-pill { display: none; }
+    .nav-shell__inner { width: min(100% - 32px, var(--content-width)); }
+    .nav-language { display: none; }
+
+    .nav-burger {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      background: var(--pill-dark);
+      border: 0;
+      border-radius: 50%;
+      box-shadow: var(--nav-shadow);
+      cursor: pointer;
+      transition: background .25s ease;
+    }
+
+    .nav-burger__bars { width: 18px; display: grid; gap: 4px; }
+    .nav-burger__bars i { width: 18px; height: 1.5px; display: block; background: #fff; border-radius: 2px; transition: transform .3s var(--ease-out), opacity .2s ease, background .25s ease; }
+
+    .nav-burger[aria-expanded="true"] { background: #fff; }
+    .nav-burger[aria-expanded="true"] .nav-burger__bars i { background: #000; }
+    .nav-burger[aria-expanded="true"] .nav-burger__bars i:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-burger[aria-expanded="true"] .nav-burger__bars i:nth-child(2) { opacity: 0; }
+    .nav-burger[aria-expanded="true"] .nav-burger__bars i:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      display: block;
+      background: rgba(0, 0, 0, .62);
+      backdrop-filter: blur(6px);
+      animation: overlayIn .28s ease both;
+    }
+
+    .nav-overlay[hidden] { display: none; }
+
+    @keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .nav-sheet {
+      width: min(calc(100% - 32px), 460px);
+      padding: 22px 18px 20px;
+      position: absolute;
+      inset-block-start: calc(100% + 6px);
+      inset-inline: 0;
+      z-index: 95;
+      margin-inline: auto;
+      display: grid;
+      gap: 4px;
+      background: #fff;
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+      animation: menuIn .38s var(--ease-out) both;
+    }
+
+    .nav-sheet[hidden] { display: none; }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-12px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes linkIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-sheet > a:not(.nav-sheet__cta) {
+      min-height: 52px;
+      padding-inline: 12px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      color: var(--nav-text);
+      font-size: 18px;
+      font-weight: 500;
+      border-radius: 14px;
+      animation: linkIn .32s var(--ease-out) calc(.06s * var(--i, 0) + .08s) both;
+    }
+
+    .nav-sheet > a:not(.nav-sheet__cta):hover { background: rgba(0, 0, 0, .05); }
+
+    .nav-sheet__language { margin-block: 10px; }
+    .nav-sheet__language select {
+      width: 100%;
+      min-height: 48px;
+      padding-inline: 14px;
+      color: var(--nav-text);
+      background: #F2F2F4;
+      border: 0;
+      border-radius: 14px;
+      font-size: 15px;
+    }
+
+    .nav-sheet__cta {
+      min-height: 52px;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background: #000;
+      border-radius: var(--pill-radius);
+      font-size: 16px;
+      font-weight: 600;
+      animation: linkIn .32s var(--ease-out) calc(.06s * var(--i, 0) + .08s) both;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo mark", "info": "Square image works best — it sits inside a circular button." },
+    { "type": "checkbox", "id": "show_language_selector", "label": "Show language selector", "default": true }
+  ]
+}
+{% endschema %}

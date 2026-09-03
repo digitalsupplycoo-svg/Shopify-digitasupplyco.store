@@ -1,0 +1,217 @@
+{% if section.settings.enabled and section.settings.ad_slot != blank %}
+  <section
+    id="GoogleAdsense-{{ section.id }}"
+    class="google-adsense google-adsense--{{ section.settings.device_visibility }}"
+    style="
+      --google-adsense-background: {{ section.settings.background_color }};
+      --google-adsense-max-width: {{ section.settings.max_width }}px;
+      --google-adsense-padding-top: {{ section.settings.spacing_top }}px;
+      --google-adsense-padding-bottom: {{ section.settings.spacing_bottom }}px;
+      --google-adsense-container-padding: {{ section.settings.container_padding }}px;
+      --google-adsense-text-align: {{ section.settings.text_alignment }};
+    "
+  >
+    <div class="google-adsense__container">
+      {% if section.settings.heading != blank %}
+        <h2 class="google-adsense__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      <div class="google-adsense__ad" aria-label="{{ 'sections.google_adsense.advertisement' | t }}">
+        <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-2768916478705236"
+          data-ad-slot="{{ section.settings.ad_slot | escape }}"
+          data-ad-format="{{ section.settings.ad_format }}"
+          {% if section.settings.ad_format == 'auto' %}data-full-width-responsive="true"{% endif %}></ins>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    window.addEventListener("load", function () {
+      try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.warn("AdSense initialization failed:", e);
+      }
+    });
+  </script>
+{% endif %}
+
+{% stylesheet %}
+  .google-adsense {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    padding-block: var(--google-adsense-padding-top) var(--google-adsense-padding-bottom);
+    overflow-x: clip;
+    background: var(--google-adsense-background);
+  }
+
+  .google-adsense *,
+  .google-adsense *::before,
+  .google-adsense *::after {
+    box-sizing: border-box;
+  }
+
+  .google-adsense__container {
+    width: min(100%, var(--google-adsense-max-width));
+    margin-inline: auto;
+    padding-inline: var(--google-adsense-container-padding);
+    text-align: var(--google-adsense-text-align);
+  }
+
+  .google-adsense__heading {
+    margin: 0 0 16px;
+  }
+
+  .google-adsense__ad {
+    width: 100%;
+    min-width: 0;
+    min-height: 120px;
+    margin-inline: auto;
+    overflow: hidden;
+  }
+
+  .google-adsense__ad .adsbygoogle {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 749px) {
+    .google-adsense--desktop-only {
+      display: none;
+    }
+
+    .google-adsense__ad {
+      min-height: 100px;
+    }
+  }
+
+  @media (min-width: 750px) {
+    .google-adsense--mobile-only {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.google_adsense.name",
+  "tag": "section",
+  "class": "section-google-adsense",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "t:sections.google_adsense.enabled",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.google_adsense.heading"
+    },
+    {
+      "type": "text",
+      "id": "ad_slot",
+      "label": "t:sections.google_adsense.ad_slot",
+      "default": "1303532868"
+    },
+    {
+      "type": "select",
+      "id": "ad_format",
+      "label": "t:sections.google_adsense.ad_format",
+      "options": [
+        {
+          "value": "auto",
+          "label": "t:sections.google_adsense.format_auto"
+        },
+        {
+          "value": "autorelaxed",
+          "label": "t:sections.google_adsense.format_autorelaxed"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "select",
+      "id": "device_visibility",
+      "label": "t:sections.google_adsense.device_visibility",
+      "options": [
+        {
+          "value": "all-devices",
+          "label": "t:sections.google_adsense.all_devices"
+        },
+        {
+          "value": "desktop-only",
+          "label": "t:sections.google_adsense.desktop_only"
+        },
+        {
+          "value": "mobile-only",
+          "label": "t:sections.google_adsense.mobile_only"
+        }
+      ],
+      "default": "all-devices"
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_alignment",
+      "label": "t:sections.google_adsense.text_alignment",
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "spacing_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.google_adsense.spacing_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.google_adsense.spacing_bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 320,
+      "max": 1200,
+      "step": 40,
+      "unit": "px",
+      "label": "t:sections.google_adsense.max_width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "container_padding",
+      "min": 0,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.google_adsense.container_padding",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:sections.google_adsense.background_color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.google_adsense.name"
+    }
+  ]
+}
+{% endschema %}

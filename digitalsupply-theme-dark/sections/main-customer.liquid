@@ -1,0 +1,67 @@
+<section class="customer-wrap">
+  {% case template.name %}
+    {% when 'login' %}
+      <h1>{{ 'customer.login.title' | t }}</h1>
+      {% form 'customer_login', class: 'customer-form' %}
+        {{ form.errors | default_errors }}
+        <label for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
+        <input id="CustomerEmail" type="email" name="customer[email]" autocomplete="email">
+        <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
+        <input id="CustomerPassword" type="password" name="customer[password]" autocomplete="current-password">
+        <button class="customer-button" type="submit">{{ 'customer.login.submit' | t }}</button>
+        <a href="{{ routes.account_register_url }}">{{ 'customer.login.register' | t }}</a>
+      {% endform %}
+    {% when 'register' %}
+      <h1>{{ 'customer.register.title' | t }}</h1>
+      {% form 'create_customer', class: 'customer-form' %}
+        {{ form.errors | default_errors }}
+        <label for="RegisterFirstName">{{ 'customer.register.first_name' | t }}</label>
+        <input id="RegisterFirstName" type="text" name="customer[first_name]" autocomplete="given-name">
+        <label for="RegisterLastName">{{ 'customer.register.last_name' | t }}</label>
+        <input id="RegisterLastName" type="text" name="customer[last_name]" autocomplete="family-name">
+        <label for="RegisterEmail">{{ 'customer.register.email' | t }}</label>
+        <input id="RegisterEmail" type="email" name="customer[email]" autocomplete="email">
+        <label for="RegisterPassword">{{ 'customer.register.password' | t }}</label>
+        <input id="RegisterPassword" type="password" name="customer[password]" autocomplete="new-password">
+        <button class="customer-button" type="submit">{{ 'customer.register.submit' | t }}</button>
+      {% endform %}
+    {% when 'reset_password' %}
+      <h1>{{ 'customer.reset_password.title' | t }}</h1>
+      {% form 'reset_customer_password', class: 'customer-form' %}
+        {{ form.errors | default_errors }}
+        <label for="ResetPassword">{{ 'customer.login.password' | t }}</label>
+        <input id="ResetPassword" type="password" name="customer[password]" autocomplete="new-password">
+        <button class="customer-button" type="submit">{{ 'customer.reset_password.submit' | t }}</button>
+      {% endform %}
+    {% else %}
+      <h1>{{ 'customer.account.title' | t }}</h1>
+      {% if customer %}
+        <p>{{ customer.name }}</p>
+        <a href="{{ routes.account_logout_url }}">{{ 'customer.account.logout' | t }}</a>
+        <h2>{{ 'customer.account.order_history' | t }}</h2>
+        {% if customer.orders.size > 0 %}
+          <div class="cart-items">
+            {% for order in customer.orders %}
+              <article class="cart-item">
+                <div>
+                  <h2><a href="{{ order.customer_url }}">{{ order.name }}</a></h2>
+                  <p>{{ order.created_at | date: format: 'date' }}</p>
+                </div>
+                <p>{{ order.total_price | money }}</p>
+              </article>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="empty-state">{{ 'cart.general.empty' | t }}</p>
+        {% endif %}
+      {% else %}
+        <a class="button-link" href="{{ routes.account_login_url }}">{{ 'customer.login.submit' | t }}</a>
+      {% endif %}
+  {% endcase %}
+</section>
+
+{% schema %}
+{
+  "name": "Customer"
+}
+{% endschema %}

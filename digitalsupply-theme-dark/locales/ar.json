@@ -1,0 +1,166 @@
+{
+  "accessibility": {
+    "skip_to_content": "تخط إلى المحتوى",
+    "search": "بحث",
+    "account": "الحساب",
+    "cart": "السلة",
+    "language": "اللغة"
+    ,"menu": "القائمة"
+  },
+  "general": {
+    "search": {
+      "placeholder": "ابحث في المنتجات الرقمية",
+      "submit": "بحث",
+      "results_for": "نتائج البحث عن \"{{ terms }}\""
+    },
+    "pagination": {
+      "page": "الصفحة {{ number }}"
+    },
+    "404": {
+      "title": "الصفحة غير موجودة",
+      "text": "الصفحة التي تبحث عنها غير متوفرة.",
+      "button": "العودة للرئيسية"
+    },
+    "newsletter": {
+      "success": "شكراً لاشتراكك.",
+      "email": "البريد الإلكتروني"
+    }
+  },
+  "header": {
+    "new": "جديد",
+    "shop": "المتجر",
+    "ebooks": "كتب رقمية",
+    "templates": "قوالب",
+    "bundles": "باقات",
+    "learn": "تعلم",
+    "free_goods": "مجانيات",
+    "deals": "عروض",
+    "cart_count": "{{ count }} السلة",
+    "contact": "تواصل معنا"
+  },
+  "contact": {
+    "prefer_email": "راسلنا مباشرة على البريد التالي",
+    "reply_time": "نرد خلال 24 ساعة.",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "message": "الرسالة",
+    "submit": "إرسال الرسالة",
+    "success": "شكراً لتواصلك معنا. سنرد عليك قريباً."
+  },
+  "faq": {
+    "support_help": "إذا واجهتك أي مشكلة، راسلنا على {{ email }}."
+  },
+  "cro": {
+    "shop": "المتجر",
+    "bundle": "الباقة",
+    "free_guide": "الدليل المجاني",
+    "faq": "الأسئلة",
+    "automatic_discount": "الخصم يطبق تلقائياً عند الدفع",
+    "bundle_cta": "خذ الباقة",
+    "choose_path": "اختر مسارك",
+    "bundle_price": "الأنظمة الثلاثة",
+    "single_price": "اختر نظاماً واحداً",
+    "best_value": "Best Value · الأفضل قيمة"
+  },
+  "homepage": {
+    "hero": {
+      "eyebrow": "3 أنظمة رقمية · وصول فوري",
+      "heading": "أول دخل لك أونلاين بنظام واضح خطوة بخطوة",
+      "subheading": "أنظمة عملية خطوة بخطوة لمسارات Amazon FBA والدروبشيبينغ والدخل بالذكاء الاصطناعي. تحميل فوري وتقدر تبدأ من جوالك اليوم.",
+      "primary_cta": "اختر مسارك",
+      "secondary_cta": "شاهد الباقة الكاملة ←"
+    },
+    "pricing": {
+      "bundle_anchor": "المجموع العادي",
+      "bundle_price": "سعر الباقة",
+      "bundle_savings": "وفر 20%"
+    }
+  },
+  "sections": {
+    "google_adsense": {
+      "name": "إعلانات Google AdSense",
+      "advertisement": "إعلان",
+      "enabled": "تفعيل الإعلان",
+      "heading": "عنوان اختياري",
+      "ad_slot": "معرّف الوحدة الإعلانية",
+      "ad_format": "تنسيق الإعلان",
+      "format_auto": "إعلان متجاوب",
+      "format_autorelaxed": "إعلان Multiplex",
+      "device_visibility": "الظهور حسب الجهاز",
+      "text_alignment": "محاذاة النص",
+      "spacing_top": "المسافة العلوية",
+      "spacing_bottom": "المسافة السفلية",
+      "max_width": "أقصى عرض للحاوية",
+      "container_padding": "الحشوة الداخلية للحاوية",
+      "background_color": "لون الخلفية",
+      "all_devices": "جميع الأجهزة",
+      "desktop_only": "سطح المكتب فقط",
+      "mobile_only": "الهاتف فقط"
+    }
+  },
+  "products": {
+    "product": {
+      "regular_price": "السعر العادي",
+      "sale_price": "سعر العرض",
+      "sold_out": "نفدت الكمية",
+      "unavailable": "غير متوفر",
+      "add_to_cart": "أضف إلى السلة",
+      "quantity": "الكمية",
+      "choose_format": "اختر النسخة",
+      "instant_download": "تحميل فوري",
+      "digital_delivery": "تسليم رقمي فوري",
+      "download_text": "احصل على المنتج مباشرة بعد إتمام الدفع.",
+      "updates": "دعم للمنتج الرقمي",
+      "updates_text": "مناسب للملفات القابلة للتحميل، الأدلة، القوالب، الدورات، وحزم البرومبتات.",
+      "no_shipping": "لا يوجد شحن",
+      "no_shipping_text": "مصمم للمنتجات الرقمية بدون توصيل مادي.",
+      "what_included": "ماذا ستحصل عليه",
+      "who_for": "لمن هذا المنتج؟",
+      "benefits": "الفوائد",
+      "how_it_works": "كيف يعمل؟",
+      "guarantee": "ضمان استرداد الأموال خلال 30 يوماً",
+      "guarantee_text": "جرّب النظام لمدة 30 يوماً. إذا لم يكن مناسباً لك، يمكنك طلب استرداد الأموال حسب سياسة المتجر.",
+      "reviews": "{{ count }} تقييم",
+      "card_cta": "اختر الباقة"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "السلة",
+      "empty": "سلتك فارغة.",
+      "continue_shopping": "متابعة التسوق",
+      "remove": "إزالة",
+      "quantity": "الكمية",
+      "subtotal": "المجموع الفرعي",
+      "checkout": "الدفع",
+      "update": "تحديث السلة",
+      "note": "يتم احتساب الضرائب والخصومات عند الدفع."
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "الحساب",
+      "logout": "تسجيل الخروج",
+      "order_history": "سجل الطلبات"
+    },
+    "login": {
+      "title": "تسجيل الدخول",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "دخول",
+      "register": "إنشاء حساب"
+    },
+    "register": {
+      "title": "إنشاء حساب",
+      "first_name": "الاسم الأول",
+      "last_name": "اسم العائلة",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "إنشاء"
+    },
+    "reset_password": {
+      "title": "إعادة تعيين كلمة المرور",
+      "submit": "إرسال"
+    }
+  }
+}
